@@ -3,27 +3,27 @@
 //
 
 #include <iostream>
-#include "LinkedListNode.h"
+#include "ListNode.h"
 #pragma once
 
 class LinkedList {
 private:
     int size;
-    LinkedListNode* start;
-    LinkedListNode* end;
+    ListNode* head;
+    ListNode* tail;
 public:
 
     LinkedList()
     {
-        start = nullptr;
-        end = nullptr;
+        head = nullptr;
+        tail = nullptr;
         size = 0;
     }
 
     LinkedList(int n, const int* input)
     {
-        start = nullptr;
-        end = nullptr;
+        head = nullptr;
+        tail = nullptr;
         size = 0;
 
         for (int i = 0; i < n; ++i)
@@ -34,8 +34,12 @@ public:
 
     ~LinkedList()
     {
-        delete start;
-        delete end;
+        ListNode* current = head;
+        while (current != nullptr) {
+            ListNode* next = current->getNextNode();
+            delete current;
+            current = next;
+        }
     }
 
     int getData(int i)
@@ -43,14 +47,14 @@ public:
         return getNode(i)->getValue();
     }
 
-    LinkedListNode* getStart()
+    ListNode* getStart()
     {
-        return start;
+        return head;
     }
 
-    LinkedListNode* getEnd()
+    ListNode* getEnd()
     {
-        return end;
+        return tail;
     }
 
     [[nodiscard]] int getSize() const
@@ -73,7 +77,7 @@ public:
 
     void printData()
     {
-        LinkedListNode* currentNode = start;
+        ListNode* currentNode = head;
 
         for (int i = 0; i < size; ++i)
         {
@@ -88,14 +92,14 @@ public:
     {
         if (size == 0)
         {
-            start = new LinkedListNode(nullptr, nullptr, x);
-            end = start;
+            head = new ListNode(nullptr, nullptr, x);
+            tail = head;
         }
         else
         {
-            auto* newStart = new LinkedListNode(nullptr, start, x);
-            start->setPrevNode(newStart);
-            start = newStart;
+            auto* newStart = new ListNode(nullptr, head, x);
+            head->setPrevNode(newStart);
+            head = newStart;
         }
         size++;
     }
@@ -104,14 +108,14 @@ public:
     {
         if (size == 0)
         {
-            start = new LinkedListNode(nullptr, nullptr, x);
-            end = start;
+            head = new ListNode(nullptr, nullptr, x);
+            tail = head;
         }
         else
         {
-            auto* newEnd = new LinkedListNode(end, nullptr, x);
-            end->setNextNode(newEnd);
-            end = newEnd;
+            auto* newEnd = new ListNode(tail, nullptr, x);
+            tail->setNextNode(newEnd);
+            tail = newEnd;
         }
         size++;
     }
@@ -128,9 +132,9 @@ public:
         }
         else
         {
-            LinkedListNode* next = getNode(i);
-            LinkedListNode* prev = next->getPrevNode();
-            auto* insertedNode = new LinkedListNode(prev, next, x);
+            ListNode* next = getNode(i);
+            ListNode* prev = next->getPrevNode();
+            auto* insertedNode = new ListNode(prev, next, x);
             prev->setNextNode(insertedNode);
             next->setPrevNode(insertedNode);
             size++;
@@ -145,16 +149,16 @@ public:
         }
         else if (size == 1)
         {
-            delete start;
-            start = nullptr;
-            end = nullptr;
+            delete head;
+            head = nullptr;
+            tail = nullptr;
         }
         else
         {
-            LinkedListNode* newStart = start->getNextNode();
+            ListNode* newStart = head->getNextNode();
             newStart->setPrevNode(nullptr);
-            delete start;
-            start = newStart;
+            delete head;
+            head = newStart;
         }
         size--;
     }
@@ -167,16 +171,16 @@ public:
         }
         else if (size == 1)
         {
-            delete start;
-            start = nullptr;
-            end = nullptr;
+            delete head;
+            head = nullptr;
+            tail = nullptr;
         }
         else
         {
-            LinkedListNode* newEnd = end->getPrevNode();
+            ListNode* newEnd = tail->getPrevNode();
             newEnd->setNextNode(nullptr);
-            delete end;
-            end = newEnd;
+            delete tail;
+            tail = newEnd;
         }
         size--;
     }
@@ -193,9 +197,9 @@ public:
         }
         else
         {
-            LinkedListNode* target = getNode(i);
-            LinkedListNode* prev = target->getPrevNode();
-            LinkedListNode* next = target->getNextNode();
+            ListNode* target = getNode(i);
+            ListNode* prev = target->getPrevNode();
+            ListNode* next = target->getNextNode();
             delete target;
             prev->setNextNode(next);
             next->setPrevNode(prev);
@@ -203,9 +207,9 @@ public:
         }
     }
 
-    LinkedListNode* getNode(int i)
+    ListNode* getNode(int i)
     {
-        LinkedListNode* currentNode = start;
+        ListNode* currentNode = head;
 
         for (int j = 0; j < i; ++j)
         {

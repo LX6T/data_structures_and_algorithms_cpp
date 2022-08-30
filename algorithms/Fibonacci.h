@@ -4,10 +4,17 @@
 
 #pragma once
 
-class fastFib {
+class Fibonacci {
 public:
 
-    static int run(int n)
+    static int slowFib(int n)
+    {
+        if (n <= 0) return 0;
+        if (n == 1) return 1;
+        return slowFib(n-1) + slowFib(n-2);
+    }
+
+    static int fastFib(int n)
     {
         if (n <= 0) return 0;
         if (n == 1) return 1;
