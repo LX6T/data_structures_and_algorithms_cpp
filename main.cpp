@@ -1,34 +1,38 @@
 #include <iostream>
 #include <ctime>
 #include "utils/Timer.h"
+#include "utils/DataGenerator.h"
 #include "algorithms/selectionSort.h"
 #include "data structures/LinkedList.h"
 
 
 int main() {
 
-    int data[10] = {9,1,2,6,5,4,9,8,7,6};
+    int size = 10000;
+    int* data = DataGenerator::randomIntArray(size, 0, 100);
 
     {
         Timer timer;
-    }
-
-    {
-        Timer timer;
-        auto* A = new Array(10, data);
-        A->printData();
-        selectionSort::sortArray(A);
-        A->printData();
     }
 
     std::cout << std::endl;
 
     {
         Timer timer;
-        auto* LL = new LinkedList(10, data);
-        LL->printData();
+        auto* A = new Array(size, data);
+//        A->printData();
+        selectionSort::sortArray(A);
+//        A->printData();
+    }
+
+    std::cout << std::endl;
+
+    {
+        Timer timer;
+        auto* LL = new LinkedList(size, data);
+//        LL->printData();
         selectionSort::sortLinkedList(LL);
-        LL->printData();
+//        LL->printData();
     }
 
     return 0;

@@ -10,20 +10,25 @@
 class selectionSort {
 public:
 
-    static void sortLinkedList(LinkedList* LL) {
+    static void sortLinkedList(LinkedList* LL)
+    {
         int size = LL->getSize();
         LinkedListNode* currentNode;
 
         // Searches i times for the next minimum value
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < size; ++i)
+        {
             currentNode = LL->getNode(i);
             int min = INT8_MAX;
             int minIndex = i;
 
             // Find the next minimum value
-            for (int j = i; j < size; ++j) {
+            for (int j = i; j < size; ++j)
+            {
                 int value = currentNode->getValue();
-                if (value < min) {
+
+                if (value < min)
+                {
                     min = value;
                     minIndex = j;
                 }
@@ -35,18 +40,23 @@ public:
         }
     }
 
-    static void sortArray(Array* A) {
+    static void sortArray(Array* A)
+    {
         int size = A->getSize();
 
         // Searches i times for the next minimum value
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < size; ++i)
+        {
             int min = INT8_MAX;
             int minIndex = i;
 
             // Find the next minimum value
-            for (int j = i; j < size; ++j) {
+            for (int j = i; j < size; ++j)
+            {
                 int value = A->getData(j);
-                if (value < min) {
+
+                if (value < min)
+                {
                     min = value;
                     minIndex = j;
                 }
@@ -56,4 +66,5 @@ public:
             A->swapData(i, minIndex);
         }
     }
+
 };

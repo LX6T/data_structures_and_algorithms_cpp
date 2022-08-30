@@ -13,67 +13,86 @@ private:
     LinkedListNode* end;
 public:
 
-    LinkedList() {
+    LinkedList()
+    {
         start = nullptr;
         end = nullptr;
         size = 0;
     }
 
-    LinkedList(int n, const int* input) {
+    LinkedList(int n, const int* input)
+    {
         start = nullptr;
         end = nullptr;
         size = 0;
-        for (int i = 0; i < n; ++i) {
+
+        for (int i = 0; i < n; ++i)
+        {
             insertBack(input[i]);
         }
     }
 
-    ~LinkedList() {
+    ~LinkedList()
+    {
         delete start;
         delete end;
     }
 
-    int getData(int i) {
+    int getData(int i)
+    {
         return getNode(i)->getValue();
     }
 
-    LinkedListNode* getStart() {
+    LinkedListNode* getStart()
+    {
         return start;
     }
 
-    LinkedListNode* getEnd() {
+    LinkedListNode* getEnd()
+    {
         return end;
     }
 
-    [[nodiscard]] int getSize() const {
+    [[nodiscard]] int getSize() const
+    {
         return size;
     }
 
-    void setData(int i, int x) {
+    void setData(int i, int x)
+    {
         getNode(i)->setValue(x);
     }
 
-    void swapData(int i, int j) {
+    void swapData(int i, int j)
+    {
         int a = getData(i);
         int b = getData(j);
         setData(i, b);
         setData(j, a);
     }
 
-    void printData() {
+    void printData()
+    {
         LinkedListNode* currentNode = start;
-        for (int i = 0; i < size; ++i) {
+
+        for (int i = 0; i < size; ++i)
+        {
             std::cout << currentNode->getValue() << " ";
             currentNode = currentNode->getNextNode();
         }
+
         std::cout << std::endl;
     }
 
-    void insertFront(int x) {
-        if (size == 0) {
+    void insertFront(int x)
+    {
+        if (size == 0)
+        {
             start = new LinkedListNode(nullptr, nullptr, x);
             end = start;
-        } else {
+        }
+        else
+        {
             auto* newStart = new LinkedListNode(nullptr, start, x);
             start->setPrevNode(newStart);
             start = newStart;
@@ -81,11 +100,15 @@ public:
         size++;
     }
 
-    void insertBack(int x) {
-        if (size == 0) {
+    void insertBack(int x)
+    {
+        if (size == 0)
+        {
             start = new LinkedListNode(nullptr, nullptr, x);
             end = start;
-        } else {
+        }
+        else
+        {
             auto* newEnd = new LinkedListNode(end, nullptr, x);
             end->setNextNode(newEnd);
             end = newEnd;
@@ -93,12 +116,18 @@ public:
         size++;
     }
 
-    void insertMid(int i, int x) {
-        if (i <= 0) {
+    void insertMid(int i, int x)
+    {
+        if (i <= 0)
+        {
             insertFront(x);
-        } else if (i >= size) {
+        }
+        else if (i >= size)
+        {
             insertBack(x);
-        } else {
+        }
+        else
+        {
             LinkedListNode* next = getNode(i);
             LinkedListNode* prev = next->getPrevNode();
             auto* insertedNode = new LinkedListNode(prev, next, x);
@@ -108,14 +137,20 @@ public:
         }
     }
 
-    void deleteFront() {
-        if (size == 0) {
+    void deleteFront()
+    {
+        if (size == 0)
+        {
             return;
-        } else if (size == 1) {
+        }
+        else if (size == 1)
+        {
             delete start;
             start = nullptr;
             end = nullptr;
-        } else {
+        }
+        else
+        {
             LinkedListNode* newStart = start->getNextNode();
             newStart->setPrevNode(nullptr);
             delete start;
@@ -124,14 +159,20 @@ public:
         size--;
     }
 
-    void deleteBack() {
-        if (size == 0) {
+    void deleteBack()
+    {
+        if (size == 0)
+        {
             return;
-        } else if (size == 1) {
+        }
+        else if (size == 1)
+        {
             delete start;
             start = nullptr;
             end = nullptr;
-        } else {
+        }
+        else
+        {
             LinkedListNode* newEnd = end->getPrevNode();
             newEnd->setNextNode(nullptr);
             delete end;
@@ -140,12 +181,18 @@ public:
         size--;
     }
 
-    void deleteMid(int i) {
-        if (i <= 0) {
+    void deleteMid(int i)
+    {
+        if (i <= 0)
+        {
             deleteFront();
-        } else if (i >= size - 1) {
+        }
+        else if (i >= size - 1)
+        {
             deleteBack();
-        } else {
+        }
+        else
+        {
             LinkedListNode* target = getNode(i);
             LinkedListNode* prev = target->getPrevNode();
             LinkedListNode* next = target->getNextNode();
@@ -156,11 +203,16 @@ public:
         }
     }
 
-    LinkedListNode* getNode(int i) {
+    LinkedListNode* getNode(int i)
+    {
         LinkedListNode* currentNode = start;
-        for (int j = 0; j < i; ++j) {
+
+        for (int j = 0; j < i; ++j)
+        {
             currentNode = currentNode->getNextNode();
         }
+
         return currentNode;
     }
+
 };

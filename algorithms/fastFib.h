@@ -6,7 +6,9 @@
 
 class fastFib {
 public:
-    static int run(int n) {
+
+    static int run(int n)
+    {
         if (n <= 0) return 0;
         if (n == 1) return 1;
         int a = 0;
@@ -20,7 +22,4 @@ public:
         return c;
     }
 
-    static std::string getName() {
-        return "fastFib";
-    }
 };
