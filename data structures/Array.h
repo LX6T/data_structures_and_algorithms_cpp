@@ -3,15 +3,17 @@
 //
 
 #include <vector>
+
 #pragma once
 
-class Array {
+class Array
+{
 private:
     int size;
     std::vector<int> data;
 public:
 
-    Array(int n, const int* input)
+    Array(int n, const int *input)
     {
         size = n;
         data = std::vector<int>(n);
@@ -47,7 +49,7 @@ public:
 
     void printData()
     {
-        for (int d : data)
+        for (int d: data)
         {
             std::cout << d << " ";
         }
@@ -62,7 +64,7 @@ public:
 
         for (int i = 0; i < size; ++i)
         {
-            newData[i+1] = data[i];
+            newData[i + 1] = data[i];
         }
 
         data = newData;
@@ -83,17 +85,15 @@ public:
         size++;
     }
 
-    void insertMid(int i, int x)
+    void insert(int i, int x)
     {
         if (i <= 0)
         {
             insertFront(x);
-        }
-        else if (i >= size)
+        } else if (i >= size)
         {
             insertBack(x);
-        }
-        else
+        } else
         {
             std::vector<int> newData = std::vector<int>(size + 1);
 
@@ -106,7 +106,7 @@ public:
 
             for (int j = i; j < size; ++j)
             {
-                newData[j+1] = data[j];
+                newData[j + 1] = data[j];
             }
 
             data = newData;
@@ -114,20 +114,20 @@ public:
         }
     }
 
-    void deleteFront()
+    void removeFront()
     {
         std::vector<int> newData = std::vector<int>(size - 1);
 
         for (int i = 1; i < size; ++i)
         {
-            newData[i-1] = data[i];
+            newData[i - 1] = data[i];
         }
 
         data = newData;
         size--;
     }
 
-    void deleteBack()
+    void removeBack()
     {
         std::vector<int> newData = std::vector<int>(size - 1);
 
@@ -140,17 +140,15 @@ public:
         size--;
     }
 
-    void deleteMid(int i)
+    void remove(int i)
     {
         if (i <= 0)
         {
-            deleteFront();
-        }
-        else if (i >= size - 1)
+            removeFront();
+        } else if (i >= size - 1)
         {
-            deleteBack();
-        }
-        else
+            removeBack();
+        } else
         {
             std::vector<int> newData = std::vector<int>(size - 1);
 
@@ -159,9 +157,9 @@ public:
                 newData[j] = data[j];
             }
 
-            for (int j = i+1; j < size; ++j)
+            for (int j = i + 1; j < size; ++j)
             {
-                newData[j-1] = data[j];
+                newData[j - 1] = data[j];
             }
 
             data = newData;

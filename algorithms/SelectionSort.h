@@ -5,12 +5,14 @@
 #include "../data structures/Array.h"
 #include "../data structures/LinkedList.h"
 #include "../data structures/ListNode.h"
+
 #pragma once
 
-class SelectionSort {
+class SelectionSort
+{
 public:
 
-    static void sortArray(Array* A)
+    static void sortArray(Array *A)
     {
         int size = A->getSize();
 
@@ -38,10 +40,10 @@ public:
     }
 
 
-    static void sortLinkedList(LinkedList* LL)
+    static void sortLinkedList(LinkedList *LL)
     {
         int size = LL->getSize();
-        ListNode* currentNode;
+        ListNode *currentNode;
 
         // Searches i times for the next minimum value
         for (int i = 0; i < size; ++i)
