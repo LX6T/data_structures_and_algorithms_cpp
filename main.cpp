@@ -6,23 +6,31 @@
 #include "algorithms/SelectionSort.h"
 #include "data structures/LinkedList.h"
 
+enum
+{
+    RANDOM = 0, ORDERED = 1, REVERSED = 2
+};
 
 int main()
 {
 
-//    Array A = Array(10, DataGenerator::randomIntArray(10, 0, 100));
-//    SelectionSort::sortArray(&A);
-//    A.printData();
-//
-//    LinkedList LL = LinkedList(10, DataGenerator::randomIntArray(10, 0, 100));
-//    SelectionSort::sortLinkedList(&LL);
-//    LL.printData();
+    Array A = Array(DataGenerator::reversedIntArray(0, 10, 1));
+    A.printData();
+    InsertionSort::sortArray(&A);
+    A.printData();
 
-    BenchMarker::selectionSortA(1, 10000, 10);
-    BenchMarker::selectionSortLL(1, 10000, 10);
+    LinkedList LL = LinkedList(DataGenerator::randomIntArray(10, 0, 100));
+    LL.printData();
+    SelectionSort::sortLinkedList(&LL);
+    LL.printData();
 
-    BenchMarker::insertionSortA(1, 10000, 10);
-    BenchMarker::insertionSortLL(1, 10000, 10);
+    int ordering = RANDOM;
+
+    BenchMarker::selectionSortA(1, 10000, 10, ordering);
+    BenchMarker::selectionSortLL(1, 10000, 10, ordering);
+
+    BenchMarker::insertionSortA(1, 10000, 10, ordering);
+    BenchMarker::insertionSortLL(1, 10000, 10, ordering);
 
     return 0;
 }

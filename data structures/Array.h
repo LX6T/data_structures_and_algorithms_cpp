@@ -13,14 +13,27 @@ private:
     std::vector<int> data;
 public:
 
-    Array(int n, const int *input)
+    Array()
     {
-        size = n;
-        data = std::vector<int>(n);
+        size = 0;
+        data = std::vector<int>();
+    }
 
-        for (int i = 0; i < n; ++i)
+    Array(const int *input)
+    {
+        int i = 0;
+
+        while (input[i] != -1)
         {
-            data[i] = input[i];
+            ++i;
+        }
+
+        size = i;
+        data = std::vector<int>(size);
+
+        for (int j = 0; j < size; ++j)
+        {
+            data[j] = input[j];
         }
     }
 

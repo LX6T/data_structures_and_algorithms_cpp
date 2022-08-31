@@ -22,16 +22,24 @@ public:
         size = 0;
     }
 
-    LinkedList(int n, const int *input)
+    LinkedList(const int *input)
     {
+        int i = 0;
+
+        while (input[i] != -1)
+        {
+            ++i;
+        }
+
+        size = 0;
         head = nullptr;
         tail = nullptr;
-        size = 0;
 
-        for (int i = 0; i < n; ++i)
+        for (int j = 0; j < i; ++j)
         {
-            insertTail(input[i]);
+            insertTail(input[j]);
         }
+
     }
 
     ~LinkedList()

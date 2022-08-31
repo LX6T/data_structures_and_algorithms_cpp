@@ -11,19 +11,45 @@
 
 #pragma once
 
+//enum
+//{
+//    RANDOM = 0, ORDERED = 1, REVERSED = 2
+//};
 
 class BenchMarker
 {
+private:
+    static const int *generateData(int i, int ordering)
+    {
+        const int *data;
+
+        switch (ordering)
+        {
+            case 0:
+                data = DataGenerator::randomIntArray(i, 0, 100);
+                break;
+            case 1:
+                data = DataGenerator::orderedIntArray(0, i, 1);
+                break;
+            case 2:
+                data = DataGenerator::orderedIntArray(0, i, 1);
+                break;
+        }
+
+        return data;
+    }
+
 public:
 
-    static void selectionSortA(int start, int stop, int multiplyStep)
+    static void selectionSortA(int start, int stop, int multiplyStep, int ordering)
     {
-        std::cout << "\n=== Benchmarking SelectionSort on Array ===" << std::endl;
+        std::cout << "\n=== Benchmarking SelectionSort on Random Array ===" << std::endl;
 
         for (int i = start; i <= stop; i *= multiplyStep)
         {
             std::cout << i << ": ";
-            Array A = Array(i, DataGenerator::randomIntArray(i, 0, 100));
+
+            Array A = Array(generateData(i, ordering));
 
             {
                 Timer timer;
@@ -34,14 +60,14 @@ public:
 
     }
 
-    static void selectionSortLL(int start, int stop, int multiplyStep)
+    static void selectionSortLL(int start, int stop, int multiplyStep, int ordering)
     {
-        std::cout << "\n=== Benchmarking SelectionSort on LinkedList ===" << std::endl;
+        std::cout << "\n=== Benchmarking SelectionSort on Random LinkedList ===" << std::endl;
 
         for (int i = start; i <= stop; i *= multiplyStep)
         {
             std::cout << i << ": ";
-            LinkedList LL = LinkedList(i, DataGenerator::randomIntArray(i, 0, 100));
+            LinkedList LL = LinkedList(generateData(i, ordering));
 
             {
                 Timer timer;
@@ -52,14 +78,14 @@ public:
 
     }
 
-    static void insertionSortA(int start, int stop, int multiplyStep)
+    static void insertionSortA(int start, int stop, int multiplyStep, int ordering)
     {
-        std::cout << "\n=== Benchmarking InsertionSort on Array ===" << std::endl;
+        std::cout << "\n=== Benchmarking InsertionSort on Random Array ===" << std::endl;
 
         for (int i = start; i <= stop; i *= multiplyStep)
         {
             std::cout << i << ": ";
-            Array A = Array(i, DataGenerator::randomIntArray(i, 0, 100));
+            Array A = Array(generateData(i, ordering));
 
             {
                 Timer timer;
@@ -70,14 +96,14 @@ public:
 
     }
 
-    static void insertionSortLL(int start, int stop, int multiplyStep)
+    static void insertionSortLL(int start, int stop, int multiplyStep, int ordering)
     {
-        std::cout << "\n=== Benchmarking InsertionSort on LinkedList ===" << std::endl;
+        std::cout << "\n=== Benchmarking InsertionSort on Random LinkedList ===" << std::endl;
 
         for (int i = start; i <= stop; i *= multiplyStep)
         {
             std::cout << i << ": ";
-            LinkedList LL = LinkedList(i, DataGenerator::randomIntArray(i, 0, 100));
+            LinkedList LL = LinkedList(generateData(i, ordering));
 
             {
                 Timer timer;
