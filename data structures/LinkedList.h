@@ -90,6 +90,14 @@ public:
         setData(j, a);
     }
 
+    void swapNodeData(ListNode *A, ListNode *B)
+    {
+        int a = A->getValue();
+        int b = B->getValue();
+        A->setValue(b);
+        B->setValue(a);
+    }
+
     void printData()
     {
         ListNode *currentNode = head;

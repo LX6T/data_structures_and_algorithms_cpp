@@ -19,24 +19,15 @@ public:
         for (int i = 1; i < size; ++i)
         {
             int currentValue = A->getData(i);
+            int j = i - 1;
 
             // Find the last item in the sorted sublist not exceeding currentValue and insert after it
-            for (int j = i - 1; j >= 0; --j)
+            while (A->getData(j) > currentValue and j >= 0)
             {
-                if (A->getData(j) <= currentValue)
-                {
-                    A->remove(i);
-                    A->insert(j + 1, currentValue);
-                    break;
-                }
-
-                // Inserts at start if no smaller value is found
-                if (j == 0)
-                {
-                    A->remove(i);
-                    A->insertFront(currentValue);
-                }
+                A->setData(j + 1, A->getData(j));
+                --j;
             }
+            A->setData(j + 1, currentValue);
         }
     }
 
@@ -47,30 +38,27 @@ public:
         // Inserts i times into the sorted sublist
         for (int i = 1; i < size; ++i)
         {
+
             ListNode *currentNode = LL->getNode(i);
             int currentValue = currentNode->getValue();
 
-            ListNode *nextSortedNode = LL->getNode(i - 1);
+            int j = i - 1;
+            ListNode *sortedNode = currentNode->getPrevNode();
 
             // Find the last item in the sorted sublist not exceeding currentValue and insert after it
-            for (int j = i - 1; j >= 0; --j)
+            while (sortedNode->getValue() > currentValue and j >= 0)
             {
-                if (nextSortedNode->getValue() <= currentValue)
-                {
-                    LL->removeNode(currentNode);
-                    LL->insertAfter(nextSortedNode, currentValue);
-                    break;
-                }
+                currentNode->setValue(sortedNode->getValue());
+                --j;
 
-                // Inserts at start if no smaller value is found
-                if (j == 0)
-                {
-                    LL->removeNode(currentNode);
-                    LL->insertHead(currentValue);
-                }
+                currentNode = currentNode->getPrevNode();
 
-                nextSortedNode = nextSortedNode->getPrevNode();
+                if (sortedNode != LL->getStart())
+                {
+                    sortedNode = sortedNode->getPrevNode();
+                }
             }
+            currentNode->setValue(currentValue);
         }
     }
 

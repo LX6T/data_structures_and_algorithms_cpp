@@ -43,31 +43,33 @@ public:
     static void sortLinkedList(LinkedList *LL)
     {
         int size = LL->getSize();
-        ListNode *currentNode;
+        ListNode *currentNode = LL->getStart();
 
         // Searches i times for the next minimum value
         for (int i = 0; i < size; ++i)
         {
-            currentNode = LL->getNode(i);
+            ListNode *scannedNode = currentNode;
             int min = INT8_MAX;
-            int minIndex = i;
+            ListNode *minNode = scannedNode;
 
             // Find the next minimum value
             for (int j = i; j < size; ++j)
             {
-                int value = currentNode->getValue();
+                int value = scannedNode->getValue();
 
                 if (value < min)
                 {
                     min = value;
-                    minIndex = j;
+                    minNode = scannedNode;
                 }
 
-                currentNode = currentNode->getNextNode();
+                scannedNode = scannedNode->getNextNode();
             }
 
             // 0 to i is sorted, i+1 to size-1 is unsorted
-            LL->swapData(i, minIndex);
+            LL->swapNodeData(currentNode, minNode);
+
+            currentNode = currentNode->getNextNode();
         }
     }
 
