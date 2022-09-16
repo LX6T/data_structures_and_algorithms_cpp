@@ -4,27 +4,28 @@
 
 #pragma once
 
-class ListNode {
+class Node
+{
 private:
-    ListNode* prev;
-    ListNode* next;
+    Node* prev;
+    Node* next;
     int value;
 public:
 
     // Each node stores a value, plus pointers to the next and previous nodes
-    ListNode(ListNode* prev, ListNode* next, int value)
+    Node(Node* prev, Node* next, int value)
     {
         this->prev = prev;
         this->next = next;
         this->value = value;
     }
 
-    ListNode* getPrevNode()
+    Node* getPrevNode()
     {
         return prev;
     }
 
-    ListNode* getNextNode()
+    Node* getNextNode()
     {
         return next;
     }
@@ -34,12 +35,12 @@ public:
         return value;
     }
 
-    void setNextNode(ListNode* newNext)
+    void setNextNode(Node* newNext)
     {
         next = newNext;
     }
 
-    void setPrevNode(ListNode* newPrev)
+    void setPrevNode(Node* newPrev)
     {
         prev = newPrev;
     }

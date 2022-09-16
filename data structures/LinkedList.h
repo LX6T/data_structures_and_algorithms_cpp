@@ -3,288 +3,358 @@
 //
 
 #include <iostream>
-#include "ListNode.h"
+#include "List"
+#include "Node.h"
+#include "../utils/Enums.h"
 
 #pragma once
 
-class LinkedList
+class LinkedList : public List
 {
 private:
-    int size;
-    ListNode *head;
-    ListNode *tail;
+    Node* mHead;
+    Node* mTail;
 public:
 
-    LinkedList()
-    {
-        head = nullptr;
-        tail = nullptr;
-        size = 0;
-    }
+    LinkedList();
+    LinkedList(const int* input);
+    ~LinkedList();
 
-    LinkedList(const int *input)
-    {
-        int i = 0;
+    int size() const;
 
-        while (input[i] != -1)
-        {
-            ++i;
-        }
+    int get(int i) const;
+    int getFirst() const;
+    int getLast() const;
+    void set(int i, int x);
+    void swap(int i, int j);
 
-        size = 0;
-        head = nullptr;
-        tail = nullptr;
+    void add(int x);
+    void addFirst(int x);
+    void addLast(int x);
+    void insert(int i, int x);
 
-        for (int j = 0; j < i; ++j)
-        {
-            insertTail(input[j]);
-        }
+    void remove(int i);
+    void removeFirst();
+    void removeLast();
+    void clear();
 
-    }
+    Node* head() const;
+    Node* tail() const;
+    Node* getNode(int i) const;
+    void swap(Node* A, Node* B);
+    void remove(Node* node);
 
-    ~LinkedList()
-    {
-        ListNode *current = head;
-        while (current != nullptr)
-        {
-            ListNode *next = current->getNextNode();
-            delete current;
-            current = next;
-        }
-    }
+    void insertBefore(Node* node, int value);
+    void insertAfter(Node* node, int value);
 
-    int getData(int i)
-    {
-        return getNode(i)->getValue();
-    }
-
-    ListNode *getStart()
-    {
-        return head;
-    }
-
-    ListNode *getEnd()
-    {
-        return tail;
-    }
-
-    ListNode *getNode(int i)
-    {
-        ListNode *currentNode = head;
-
-        for (int j = 0; j < i; ++j)
-        {
-            currentNode = currentNode->getNextNode();
-        }
-
-        return currentNode;
-    }
-
-    [[nodiscard]] int getSize() const
-    {
-        return size;
-    }
-
-    void setData(int i, int x)
-    {
-        getNode(i)->setValue(x);
-    }
-
-    void swapData(int i, int j)
-    {
-        int a = getData(i);
-        int b = getData(j);
-        setData(i, b);
-        setData(j, a);
-    }
-
-    void swapNodeData(ListNode *A, ListNode *B)
-    {
-        int a = A->getValue();
-        int b = B->getValue();
-        A->setValue(b);
-        B->setValue(a);
-    }
-
-    void printData()
-    {
-        ListNode *currentNode = head;
-
-        for (int i = 0; i < size; ++i)
-        {
-            std::cout << currentNode->getValue() << " ";
-            currentNode = currentNode->getNextNode();
-        }
-
-        std::cout << std::endl;
-    }
-
-    void insertHead(int x)
-    {
-        if (size == 0)
-        {
-            head = new ListNode(nullptr, nullptr, x);
-            tail = head;
-        } else
-        {
-            auto *newStart = new ListNode(nullptr, head, x);
-            head->setPrevNode(newStart);
-            head = newStart;
-        }
-        size++;
-    }
-
-    void insertTail(int x)
-    {
-        if (size == 0)
-        {
-            head = new ListNode(nullptr, nullptr, x);
-            tail = head;
-        } else
-        {
-            auto *newEnd = new ListNode(tail, nullptr, x);
-            tail->setNextNode(newEnd);
-            tail = newEnd;
-        }
-        size++;
-    }
-
-    void insert(int i, int x)
-    {
-        if (i <= 0)
-        {
-            insertHead(x);
-        } else if (i >= size)
-        {
-            insertTail(x);
-        } else
-        {
-            ListNode *next = getNode(i);
-            ListNode *prev = next->getPrevNode();
-            auto *insertedNode = new ListNode(prev, next, x);
-            prev->setNextNode(insertedNode);
-            next->setPrevNode(insertedNode);
-            size++;
-        }
-    }
-
-    void insertBefore(ListNode *node, int value)
-    {
-        ListNode *oldPrev = node->getPrevNode();
-        ListNode *newPrev = new ListNode(oldPrev, node, value);
-        node->setPrevNode(newPrev);
-
-        if (oldPrev != nullptr)
-        {
-            oldPrev->setNextNode(newPrev);
-        } else
-        {
-            head = newPrev;
-        }
-        size++;
-    }
-
-    void insertAfter(ListNode *node, int value)
-    {
-        ListNode *oldNext = node->getNextNode();
-        ListNode *newNext = new ListNode(node, oldNext, value);
-        node->setNextNode(newNext);
-
-        if (oldNext != nullptr)
-        {
-            oldNext->setPrevNode(newNext);
-        } else
-        {
-            tail = newNext;
-        }
-        size++;
-    }
-
-    void removeHead()
-    {
-        if (size == 0)
-        {
-            return;
-        } else if (size == 1)
-        {
-            delete head;
-            head = nullptr;
-            tail = nullptr;
-        } else
-        {
-            ListNode *newStart = head->getNextNode();
-            newStart->setPrevNode(nullptr);
-            delete head;
-            head = newStart;
-        }
-        size--;
-    }
-
-    void removeTail()
-    {
-        if (size == 0)
-        {
-            return;
-        } else if (size == 1)
-        {
-            delete head;
-            head = nullptr;
-            tail = nullptr;
-        } else
-        {
-            ListNode *newEnd = tail->getPrevNode();
-            newEnd->setNextNode(nullptr);
-            delete tail;
-            tail = newEnd;
-        }
-        size--;
-    }
-
-    void remove(int i)
-    {
-        if (i <= 0)
-        {
-            removeHead();
-        } else if (i >= size - 1)
-        {
-            removeTail();
-        } else
-        {
-            ListNode *target = getNode(i);
-            ListNode *prev = target->getPrevNode();
-            ListNode *next = target->getNextNode();
-            delete target;
-            prev->setNextNode(next);
-            next->setPrevNode(prev);
-            size--;
-        }
-    }
-
-    void removeNode(ListNode *node)
-    {
-        ListNode *prevNode = node->getPrevNode();
-        ListNode *nextNode = node->getNextNode();
-
-        if (prevNode != nullptr)
-        {
-            prevNode->setNextNode(nextNode);
-        } else
-        {
-            removeHead();
-            return;
-        }
-
-        if (nextNode != nullptr)
-        {
-            nextNode->setPrevNode(prevNode);
-        } else
-        {
-            removeTail();
-            return;
-        }
-
-        delete node;
-        size--;
-    }
-
+    void print() const;
 };
+
+
+LinkedList::LinkedList()
+{
+    mSize = 0;
+    mHead = nullptr;
+    mTail = nullptr;
+}
+
+LinkedList::LinkedList(const int* input)
+{
+    int i = 0;
+
+    while (input[i] != END)
+    {
+        ++i;
+    }
+
+    mSize = 0;
+    mHead = nullptr;
+    mTail = nullptr;
+
+    for (int j = 0; j < i; ++j)
+    {
+        addLast(input[j]);
+    }
+
+}
+
+LinkedList::~LinkedList()
+{
+    Node* current = mHead;
+    while (current != nullptr)
+    {
+        Node* next = current->getNextNode();
+        delete current;
+        current = next;
+    }
+}
+
+
+int LinkedList::size() const
+{
+    return mSize;
+}
+
+
+int LinkedList::get(int i) const
+{
+    return getNode(i)->getValue();
+}
+
+int LinkedList::getFirst() const
+{
+    return mHead->getValue();
+}
+
+int LinkedList::getLast() const
+{
+    return mTail->getValue();
+}
+
+void LinkedList::set(int i, int x)
+{
+    getNode(i)->setValue(x);
+}
+
+void LinkedList::swap(int i, int j)
+{
+    int a = get(i);
+    int b = get(j);
+    set(i, b);
+    set(j, a);
+}
+
+
+void LinkedList::add(int x)
+{
+    insert(mSize, x);
+}
+
+void LinkedList::addFirst(int x)
+{
+    if (mSize == 0)
+    {
+        mHead = new Node(nullptr, nullptr, x);
+        mTail = mHead;
+    } else
+    {
+        auto* newStart = new Node(nullptr, mHead, x);
+        mHead->setPrevNode(newStart);
+        mHead = newStart;
+    }
+    mSize++;
+}
+
+void LinkedList::addLast(int x)
+{
+    if (mSize == 0)
+    {
+        mHead = new Node(nullptr, nullptr, x);
+        mTail = mHead;
+    } else
+    {
+        auto* newEnd = new Node(mTail, nullptr, x);
+        mTail->setNextNode(newEnd);
+        mTail = newEnd;
+    }
+    mSize++;
+}
+
+void LinkedList::insert(int i, int x)
+{
+    if (i <= 0)
+    {
+        addFirst(x);
+    } else if (i >= mSize)
+    {
+        addLast(x);
+    } else
+    {
+        Node* next = getNode(i);
+        Node* prev = next->getPrevNode();
+        auto* insertedNode = new Node(prev, next, x);
+        prev->setNextNode(insertedNode);
+        next->setPrevNode(insertedNode);
+        mSize++;
+    }
+}
+
+
+void LinkedList::remove(int i)
+{
+    if (i <= 0)
+    {
+        removeFirst();
+    } else if (i >= mSize - 1)
+    {
+        removeLast();
+    } else
+    {
+        Node* target = getNode(i);
+        Node* prev = target->getPrevNode();
+        Node* next = target->getNextNode();
+        delete target;
+        prev->setNextNode(next);
+        next->setPrevNode(prev);
+        mSize--;
+    }
+}
+
+void LinkedList::removeFirst()
+{
+    if (mSize == 0)
+    {
+        return;
+    } else if (mSize == 1)
+    {
+        delete mHead;
+        mHead = nullptr;
+        mTail = nullptr;
+    } else
+    {
+        Node* newStart = mHead->getNextNode();
+        newStart->setPrevNode(nullptr);
+        delete mHead;
+        mHead = newStart;
+    }
+    mSize--;
+}
+
+void LinkedList::removeLast()
+{
+    if (mSize == 0)
+    {
+        return;
+    } else if (mSize == 1)
+    {
+        delete mHead;
+        mHead = nullptr;
+        mTail = nullptr;
+    } else
+    {
+        Node* newEnd = mTail->getPrevNode();
+        newEnd->setNextNode(nullptr);
+        delete mTail;
+        mTail = newEnd;
+    }
+    mSize--;
+}
+
+void LinkedList::clear()
+{
+    Node* current = mHead;
+    while (current != nullptr)
+    {
+        Node* next = current->getNextNode();
+        delete current;
+        current = next;
+    }
+    mSize = 0;
+    mHead = nullptr;
+    mTail = nullptr;
+}
+
+
+Node* LinkedList::head() const
+{
+    return mHead;
+}
+
+Node* LinkedList::tail() const
+{
+    return mTail;
+}
+
+Node* LinkedList::getNode(int i) const
+{
+    Node* currentNode = mHead;
+
+    for (int j = 0; j < i; ++j)
+    {
+        currentNode = currentNode->getNextNode();
+    }
+
+    return currentNode;
+}
+
+void LinkedList::swap(Node* A, Node* B)
+{
+    int a = A->getValue();
+    int b = B->getValue();
+    A->setValue(b);
+    B->setValue(a);
+}
+
+void LinkedList::remove(Node* node)
+{
+    Node* prevNode = node->getPrevNode();
+    Node* nextNode = node->getNextNode();
+
+    if (prevNode != nullptr)
+    {
+        prevNode->setNextNode(nextNode);
+    } else
+    {
+        removeFirst();
+        return;
+    }
+
+    if (nextNode != nullptr)
+    {
+        nextNode->setPrevNode(prevNode);
+    } else
+    {
+        removeLast();
+        return;
+    }
+
+    delete node;
+    mSize--;
+}
+
+
+void LinkedList::insertBefore(Node* node, int value)
+{
+    Node* oldPrev = node->getPrevNode();
+    Node* newPrev = new Node(oldPrev, node, value);
+    node->setPrevNode(newPrev);
+
+    if (oldPrev != nullptr)
+    {
+        oldPrev->setNextNode(newPrev);
+    } else
+    {
+        mHead = newPrev;
+    }
+    mSize++;
+}
+
+void LinkedList::insertAfter(Node* node, int value)
+{
+    Node* oldNext = node->getNextNode();
+    Node* newNext = new Node(node, oldNext, value);
+    node->setNextNode(newNext);
+
+    if (oldNext != nullptr)
+    {
+        oldNext->setPrevNode(newNext);
+    } else
+    {
+        mTail = newNext;
+    }
+    mSize++;
+}
+
+
+void LinkedList::print() const
+{
+    Node* currentNode = mHead;
+
+    for (int i = 0; i < mSize; ++i)
+    {
+        std::cout << currentNode->getValue() << " ";
+        currentNode = currentNode->getNextNode();
+    }
+
+    std::cout << std::endl;
+}
