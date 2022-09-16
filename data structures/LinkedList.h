@@ -21,6 +21,7 @@ public:
     ~LinkedList();
 
     int size() const;
+    bool isEmpty() const;
 
     int get(int i) const;
     int getFirst() const;
@@ -93,6 +94,11 @@ LinkedList::~LinkedList()
 int LinkedList::size() const
 {
     return mSize;
+}
+
+bool LinkedList::isEmpty() const
+{
+    return mSize == 0;
 }
 
 

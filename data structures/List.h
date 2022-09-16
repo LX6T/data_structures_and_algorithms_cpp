@@ -15,6 +15,8 @@ public:
 
     virtual int size() const = 0;
 
+    virtual bool isEmpty() const = 0;
+
     virtual int get(int i) const = 0;
 
     virtual void set(int i, int x) = 0;

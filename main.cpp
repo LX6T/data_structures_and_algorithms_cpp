@@ -1,37 +1,21 @@
 #include <iostream>
-#include "utils/BenchMarker.h"
-#include "utils/Timer.h"
-#include "utils/DataGenerator.h"
-#include "algorithms/InsertionSort.h"
-#include "algorithms/SelectionSort.h"
-#include "data structures/LinkedList.h"
+#include "algorithms/algorithms.h"
+#include "data structures/data structures.h"
+#include "utils/utils.h"
 
-enum
-{
-    RANDOM = 0, ORDERED = 1, REVERSED = 2
-};
 
 int main()
 {
 
-    Array A = Array(DataGenerator::reversedIntArray(0, 10, 1));
-    A.printData();
-    InsertionSort::sortArray(&A);
-    A.printData();
+    int ordering = REVERSED;
+    std::vector<std::vector<int> > tests{{SELECTION_SORT, ordering, ARRAY_LIST},
+                                         {INSERTION_SORT, ordering, ARRAY_LIST},
+                                         {SELECTION_SORT, ordering, LINKED_LIST},
+                                         {INSERTION_SORT, ordering, LINKED_LIST}};
 
-    LinkedList LL = LinkedList(DataGenerator::randomIntArray(10, 0, 100));
-    LL.printData();
-    SelectionSort::sortLinkedList(&LL);
-    LL.printData();
+//    Tester::unitTest(tests);
 
-    int ordering = RANDOM;
-
-    BenchMarker::selectionSortA(1, 10000, 10, ordering);
-    BenchMarker::selectionSortLL(1, 10000, 10, ordering);
-
-    BenchMarker::insertionSortA(1, 10000, 10, ordering);
-    BenchMarker::insertionSortLL(1, 10000, 10, ordering);
+    Tester::benchmark(tests);
 
     return 0;
 }
-

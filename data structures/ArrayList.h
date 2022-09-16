@@ -20,6 +20,7 @@ public:
     ArrayList(const int* input);
 
     int size() const;
+    bool isEmpty() const;
 
     int get(int i) const;
     void set(int i, int x);
@@ -54,9 +55,15 @@ ArrayList::ArrayList(const int* input)
     mCapacity = mSize;
 }
 
+
 int ArrayList::size() const
 {
     return mSize;
+}
+
+bool ArrayList::isEmpty() const
+{
+    return mSize == 0;
 }
 
 int ArrayList::get(int i) const

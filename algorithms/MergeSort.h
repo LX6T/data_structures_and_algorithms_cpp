@@ -2,9 +2,7 @@
 // Created by alex on 31/08/2022.
 //
 
-#include "../data structures/Array.h"
-#include "../data structures/LinkedList.h"
-#include "../data structures/ListNode.h"
+#include "../data structures/data structures.h"
 
 #pragma once
 
@@ -13,19 +11,19 @@ class MergeSort
 {
 public:
 
-    static void sortArray(Array *A)
+    static void sort(ArrayList& A)
     {
-        int size = A->getSize();
+        int size = A.size();
 
 
     }
 
 
-    static void sortLinkedList(LinkedList *LL)
+    static void sort(LinkedList& LL)
     {
-        int size = LL->getSize();
+        int size = LL.size();
 
-        
+
     }
 
 };

@@ -3,6 +3,7 @@
 //
 
 #include <random>
+#include "Enums.h"
 
 #pragma once
 
@@ -11,10 +12,10 @@ class DataGenerator
 {
 public:
 
-    static int *randomIntArray(int n, int min, int max)
+    static int* randomIntArray(int n, int min, int max)
     {
         srand(time(0));
-        int *randomArray = new int[n + 1];
+        int* randomArray = new int[n + 1];
 
         for (int i = 0; i < n; ++i)
         {
@@ -22,27 +23,27 @@ public:
             randomArray[i] = (rand() % range) + min;
         }
 
-        randomArray[n] = -1;
+        randomArray[n] = END;
 
         return randomArray;
     }
 
-    static int *orderedIntArray(int start, int stop, int step)
+    static int* orderedIntArray(int start, int stop, int step)
     {
         int n = (stop - start) / step;
-        int *orderedArray = new int[n + 1];
+        int* orderedArray = new int[n + 1];
 
         for (int i = 0; i < n; ++i)
         {
             orderedArray[i] = (i * step) + start;
         }
 
-        orderedArray[n] = -1;
+        orderedArray[n] = END;
 
         return orderedArray;
     }
 
-    static int *reversedIntArray(int start, int stop, int step)
+    static int* reversedIntArray(int start, int stop, int step)
     {
         int reverseStart = stop - step;
         int reverseStop = start - step;

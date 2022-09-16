@@ -2,9 +2,7 @@
 // Created by alex on 24/08/2022.
 //
 
-#include "../data structures/Array.h"
-#include "../data structures/LinkedList.h"
-#include "../data structures/ListNode.h"
+#include "../data structures/data structures.h"
 
 #pragma once
 
@@ -12,9 +10,9 @@ class SelectionSort
 {
 public:
 
-    static void sortArray(Array *A)
+    static void sort(ArrayList& AL)
     {
-        int size = A->getSize();
+        int size = AL.size();
 
         // Searches i times for the next minimum value
         for (int i = 0; i < size; ++i)
@@ -25,7 +23,7 @@ public:
             // Find the next minimum value
             for (int j = i; j < size; ++j)
             {
-                int value = A->getData(j);
+                int value = AL.get(j);
 
                 if (value < min)
                 {
@@ -35,22 +33,22 @@ public:
             }
 
             // 0 to i is sorted, i+1 to size-1 is unsorted
-            A->swapData(i, minIndex);
+            AL.swap(i, minIndex);
         }
     }
 
 
-    static void sortLinkedList(LinkedList *LL)
+    static void sort(LinkedList& LL)
     {
-        int size = LL->getSize();
-        ListNode *currentNode = LL->getStart();
+        int size = LL.size();
+        Node* currentNode = LL.head();
 
         // Searches i times for the next minimum value
         for (int i = 0; i < size; ++i)
         {
-            ListNode *scannedNode = currentNode;
+            Node* scannedNode = currentNode;
             int min = INT8_MAX;
-            ListNode *minNode = scannedNode;
+            Node* minNode = scannedNode;
 
             // Find the next minimum value
             for (int j = i; j < size; ++j)
@@ -67,7 +65,7 @@ public:
             }
 
             // 0 to i is sorted, i+1 to size-1 is unsorted
-            LL->swapNodeData(currentNode, minNode);
+            LL.swap(currentNode, minNode);
 
             currentNode = currentNode->getNextNode();
         }

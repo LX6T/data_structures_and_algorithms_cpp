@@ -3,4 +3,4 @@ project(data_structures_and_algorithms)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(data_structures_and_algorithms main.cpp)
+add_executable(data_structures_and_algorithms "main.cpp")

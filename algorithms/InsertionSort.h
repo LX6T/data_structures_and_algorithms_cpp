@@ -2,48 +2,47 @@
 // Created by alex on 31/08/2022.
 //
 
-#include "../data structures/Array.h"
+#include "../data structures/data structures.h"
 
 #pragma once
-
 
 class InsertionSort
 {
 public:
 
-    static void sortArray(Array *A)
+    static void sort(ArrayList& AL)
     {
-        int size = A->getSize();
+        int size = AL.size();
 
         // Inserts i times into the sorted sublist
         for (int i = 1; i < size; ++i)
         {
-            int currentValue = A->getData(i);
+            int currentValue = AL.get(i);
             int j = i - 1;
 
             // Find the last item in the sorted sublist not exceeding currentValue and insert after it
-            while (A->getData(j) > currentValue and j >= 0)
+            while (AL.get(j) > currentValue and j >= 0)
             {
-                A->setData(j + 1, A->getData(j));
+                AL.set(j + 1, AL.get(j));
                 --j;
             }
-            A->setData(j + 1, currentValue);
+            AL.set(j + 1, currentValue);
         }
     }
 
-    static void sortLinkedList(LinkedList *LL)
+    static void sort(LinkedList& LL)
     {
-        int size = LL->getSize();
+        int size = LL.size();
 
         // Inserts i times into the sorted sublist
         for (int i = 1; i < size; ++i)
         {
 
-            ListNode *currentNode = LL->getNode(i);
+            Node* currentNode = LL.getNode(i);
             int currentValue = currentNode->getValue();
 
             int j = i - 1;
-            ListNode *sortedNode = currentNode->getPrevNode();
+            Node* sortedNode = currentNode->getPrevNode();
 
             // Find the last item in the sorted sublist not exceeding currentValue and insert after it
             while (sortedNode->getValue() > currentValue and j >= 0)
@@ -53,7 +52,7 @@ public:
 
                 currentNode = currentNode->getPrevNode();
 
-                if (sortedNode != LL->getStart())
+                if (sortedNode != LL.head())
                 {
                     sortedNode = sortedNode->getPrevNode();
                 }

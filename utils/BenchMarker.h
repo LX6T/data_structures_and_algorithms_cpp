@@ -4,34 +4,33 @@
 
 #include "DataGenerator.h"
 #include "Timer.h"
-#include "../data structures/Array.h"
-#include "../data structures/LinkedList.h"
-#include "../algorithms/SelectionSort.h"
-#include "../algorithms/InsertionSort.h"
+#include "Enums.h"
+#include "../data structures/data structures.h"
+#include "../algorithms/algorithms.h"
 
 #pragma once
-
-//enum
-//{
-//    RANDOM = 0, ORDERED = 1, REVERSED = 2
-//};
 
 class BenchMarker
 {
 private:
-    static const int *generateData(int i, int ordering)
+
+    inline static const std::string sAlgorithms[3] = {"SelectionSort", "InsertionSort", "MergeSort"};
+    inline static const std::string sOrderings[3] = {"Random", "Ordered", "Reversed"};
+    inline static const std::string sTypes[2] = {"ArrayList", "LinkedList"};
+
+    static const int* generateData(int i, Ordering ordering)
     {
-        const int *data;
+        const int* data;
 
         switch (ordering)
         {
-            case 0:
+            case RANDOM:
                 data = DataGenerator::randomIntArray(i, 0, 100);
                 break;
-            case 1:
+            case ORDERED:
                 data = DataGenerator::orderedIntArray(0, i, 1);
                 break;
-            case 2:
+            case REVERSED:
                 data = DataGenerator::orderedIntArray(0, i, 1);
                 break;
         }
@@ -39,79 +38,41 @@ private:
         return data;
     }
 
+    static const void logMessage(Algorithm a, Ordering o, Type t)
+    {
+        std::cout << "\n=== Benchmarking " << sAlgorithms[a] << " on " << sOrderings[o] << " " << sTypes[t] << " ==="
+                  << std::endl;
+    }
+
+
 public:
 
-    static void selectionSortA(int start, int stop, int multiplyStep, int ordering)
+    static void sort(int start, int stop, int multiplyStep, Algorithm algorithm, Ordering ordering, Type type)
     {
-        std::cout << "\n=== Benchmarking SelectionSort on Random Array ===" << std::endl;
+        logMessage(algorithm, ordering, type);
 
         for (int i = start; i <= stop; i *= multiplyStep)
         {
             std::cout << i << ": ";
 
-            Array A = Array(generateData(i, ordering));
+            ArrayList A = ArrayList(generateData(i, ordering));
 
             {
                 Timer timer;
-                SelectionSort::sortArray(&A);
+
+                switch (algorithm)
+                {
+                    case SELECTION_SORT:
+                        SelectionSort::sort(A);
+                        break;
+                    case INSERTION_SORT:
+                        InsertionSort::sort(A);
+                        break;
+                    case MERGE_SORT:
+                        MergeSort::sort(A);
+                        break;
+                }
             }
-
         }
-
     }
-
-    static void selectionSortLL(int start, int stop, int multiplyStep, int ordering)
-    {
-        std::cout << "\n=== Benchmarking SelectionSort on Random LinkedList ===" << std::endl;
-
-        for (int i = start; i <= stop; i *= multiplyStep)
-        {
-            std::cout << i << ": ";
-            LinkedList LL = LinkedList(generateData(i, ordering));
-
-            {
-                Timer timer;
-                SelectionSort::sortLinkedList(&LL);
-            }
-
-        }
-
-    }
-
-    static void insertionSortA(int start, int stop, int multiplyStep, int ordering)
-    {
-        std::cout << "\n=== Benchmarking InsertionSort on Random Array ===" << std::endl;
-
-        for (int i = start; i <= stop; i *= multiplyStep)
-        {
-            std::cout << i << ": ";
-            Array A = Array(generateData(i, ordering));
-
-            {
-                Timer timer;
-                InsertionSort::sortArray(&A);
-            }
-
-        }
-
-    }
-
-    static void insertionSortLL(int start, int stop, int multiplyStep, int ordering)
-    {
-        std::cout << "\n=== Benchmarking InsertionSort on Random LinkedList ===" << std::endl;
-
-        for (int i = start; i <= stop; i *= multiplyStep)
-        {
-            std::cout << i << ": ";
-            LinkedList LL = LinkedList(generateData(i, ordering));
-
-            {
-                Timer timer;
-                InsertionSort::sortLinkedList(&LL);
-            }
-
-        }
-
-    }
-
 };
