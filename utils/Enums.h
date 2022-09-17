@@ -11,15 +11,10 @@ enum Ordering
 
 enum Algorithm
 {
-    SELECTION_SORT, INSERTION_SORT, MERGE_SORT
+    SELECTION_SORT, INSERTION_SORT, MERGE_SORT, QUICK_SORT
 };
 
 enum Type
 {
     ARRAY_LIST, LINKED_LIST
-};
-
-enum
-{
-    END = -1
 };

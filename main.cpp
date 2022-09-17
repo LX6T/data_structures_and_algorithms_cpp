@@ -8,8 +8,8 @@ int main()
 {
 
     int ordering = RANDOM;
-    std::vector<std::vector<int> > tests{{MERGE_SORT, ordering, ARRAY_LIST},
-                                         {MERGE_SORT, ordering, LINKED_LIST}};
+    std::vector<std::vector<int> > tests{{QUICK_SORT, ordering, ARRAY_LIST},
+                                         {QUICK_SORT, ordering, LINKED_LIST}};
 
     Tester::unitTest(tests);
 

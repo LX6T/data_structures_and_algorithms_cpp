@@ -8,3 +8,4 @@
 #include "sorting algorithms/SelectionSort.h"
 #include "sorting algorithms/InsertionSort.h"
 #include "sorting algorithms/MergeSort.h"
+#include "sorting algorithms/QuickSort.h"

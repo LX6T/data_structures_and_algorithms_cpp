@@ -5,13 +5,13 @@
 #include <iostream>
 #include <vector>
 #include "List.h"
-#include "../utils/Enums.h"
 
 #pragma once
 
 class ArrayList : public List
 {
 private:
+    static const int END = -1;
     int mCapacity;
     std::vector<int> mData;
 public:

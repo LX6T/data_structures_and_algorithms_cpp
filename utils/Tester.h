@@ -33,42 +33,48 @@ struct Tester
                     break;
             }
 
-            auto AL = ArrayList(array);
-            auto LL = LinkedList(array);
+            auto A = ArrayList(array);
+            auto L = LinkedList(array);
 
             switch (type)
             {
                 case ARRAY_LIST:
-                    AL.print();
+                    A.print();
                     switch (algorithm)
                     {
                         case SELECTION_SORT:
-                            SelectionSort::sort(AL);
+                            SelectionSort::sort(A);
                             break;
                         case INSERTION_SORT:
-                            InsertionSort::sort(AL);
+                            InsertionSort::sort(A);
                             break;
                         case MERGE_SORT:
-                            MergeSort::sort(AL, 0, 9);
+                            MergeSort::sort(A, 0, 9);
+                            break;
+                        case QUICK_SORT:
+                            QuickSort::sort(A, 0, 9);
                             break;
                     }
-                    AL.print();
+                    A.print();
                     break;
                 case LINKED_LIST:
-                    LL.print();
+                    L.print();
                     switch (algorithm)
                     {
                         case SELECTION_SORT:
-                            SelectionSort::sort(LL);
+                            SelectionSort::sort(L);
                             break;
                         case INSERTION_SORT:
-                            InsertionSort::sort(LL);
+                            InsertionSort::sort(L);
                             break;
                         case MERGE_SORT:
-                            MergeSort::sort(LL, 0, 9);
+                            MergeSort::sort(L, 0, 9);
+                            break;
+                        case QUICK_SORT:
+                            QuickSort::sort(L, 0, 9);
                             break;
                     }
-                    LL.print();
+                    L.print();
                     break;
             }
             std::cout << std::endl;

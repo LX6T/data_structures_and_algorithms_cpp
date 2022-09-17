@@ -14,9 +14,10 @@ class BenchMarker
 {
 private:
 
-    inline static const std::string sAlgorithms[3] = {"SelectionSort", "InsertionSort", "MergeSort"};
-    inline static const std::string sOrderings[3] = {"Random", "Ordered", "Reversed"};
-    inline static const std::string sTypes[2] = {"ArrayList", "LinkedList"};
+    inline static const std::vector<std::string> scAlgorithms{"SelectionSort", "InsertionSort", "MergeSort",
+                                                              "QuickSort"};
+    inline static const std::vector<std::string> scOrderings{"Random", "Ordered", "Reversed"};
+    inline static const std::vector<std::string> scTypes{"ArrayList", "LinkedList"};
 
     static const int* generateData(int i, Ordering ordering)
     {
@@ -40,7 +41,7 @@ private:
 
     static const void logMessage(Algorithm a, Ordering o, Type t)
     {
-        std::cout << "\n=== Benchmarking " << sAlgorithms[a] << " on " << sOrderings[o] << " " << sTypes[t] << " ==="
+        std::cout << "\n=== Benchmarking " << scAlgorithms[a] << " on " << scOrderings[o] << " " << scTypes[t] << " ==="
                   << std::endl;
     }
 
@@ -73,6 +74,9 @@ public:
                         break;
                     case MERGE_SORT:
                         MergeSort::sort(A, 0, i - 1);
+                        break;
+                    case QUICK_SORT:
+                        QuickSort::sort(A, 0, i - 1);
                         break;
                 }
             }

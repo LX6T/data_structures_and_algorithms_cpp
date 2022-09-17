@@ -14,13 +14,13 @@ public:
     {
         int size = A.size();
 
-        // Searches i times for the next minimum value
+        // Searches i times for the mNext minimum mVal
         for (int i = 0; i < size; ++i)
         {
             int min = INT8_MAX;
             int minIndex = i;
 
-            // Find the next minimum value
+            // Find the mNext minimum mVal
             for (int j = i; j < size; ++j)
             {
                 int value = A.get(j);
@@ -43,17 +43,17 @@ public:
         int size = L.size();
         Node* currentNode = L.head();
 
-        // Searches i times for the next minimum value
+        // Searches i times for the mNext minimum mVal
         for (int i = 0; i < size; ++i)
         {
             Node* scannedNode = currentNode;
             int min = INT8_MAX;
             Node* minNode = scannedNode;
 
-            // Find the next minimum value
+            // Find the mNext minimum mVal
             for (int j = i; j < size; ++j)
             {
-                int value = scannedNode->getValue();
+                int value = scannedNode->val();
 
                 if (value < min)
                 {
@@ -61,13 +61,13 @@ public:
                     minNode = scannedNode;
                 }
 
-                scannedNode = scannedNode->getNextNode();
+                scannedNode = scannedNode->next();
             }
 
             // 0 to i is sorted, i+1 to size-1 is unsorted
             L.swap(currentNode, minNode);
 
-            currentNode = currentNode->getNextNode();
+            currentNode = currentNode->next();
         }
     }
 

@@ -39,25 +39,25 @@ public:
         {
 
             Node* currentNode = L.getNode(i);
-            int currentValue = currentNode->getValue();
+            int currentValue = currentNode->val();
 
             int j = i - 1;
-            Node* sortedNode = currentNode->getPrevNode();
+            Node* sortedNode = currentNode->prev();
 
             // Find the last item in the sorted sublist not exceeding currentValue and insert after it
-            while (sortedNode->getValue() > currentValue and j >= 0)
+            while (sortedNode->val() > currentValue and j >= 0)
             {
-                currentNode->setValue(sortedNode->getValue());
+                currentNode->setVal(sortedNode->val());
                 --j;
 
-                currentNode = currentNode->getPrevNode();
+                currentNode = currentNode->prev();
 
                 if (sortedNode != L.head())
                 {
-                    sortedNode = sortedNode->getPrevNode();
+                    sortedNode = sortedNode->prev();
                 }
             }
-            currentNode->setValue(currentValue);
+            currentNode->setVal(currentValue);
         }
     }
 

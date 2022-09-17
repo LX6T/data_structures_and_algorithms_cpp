@@ -3,13 +3,14 @@
 //
 
 #include <random>
-#include "Enums.h"
 
 #pragma once
 
 
 class DataGenerator
 {
+private:
+    static const int END = -1;
 public:
 
     static int* randomIntArray(int n, int min, int max)

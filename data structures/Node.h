@@ -7,47 +7,47 @@
 class Node
 {
 private:
-    Node* prev;
-    Node* next;
-    int value;
+    Node* mPrev;
+    Node* mNext;
+    int mVal;
 public:
 
-    // Each node stores a value, plus pointers to the next and previous nodes
-    Node(Node* prev, Node* next, int value)
+    // Each node stores a mVal, plus pointers to the mNext and previous nodes
+    Node(Node* prev, Node* next, int val)
     {
-        this->prev = prev;
-        this->next = next;
-        this->value = value;
+        this->mPrev = prev;
+        this->mNext = next;
+        this->mVal = val;
     }
 
-    Node* getPrevNode()
+    Node* prev()
     {
-        return prev;
+        return mPrev;
     }
 
-    Node* getNextNode()
+    Node* next()
     {
-        return next;
+        return mNext;
     }
 
-    int getValue() const
+    int val() const
     {
-        return value;
+        return mVal;
     }
 
-    void setNextNode(Node* newNext)
+    void setNext(Node* newNext)
     {
-        next = newNext;
+        mNext = newNext;
     }
 
-    void setPrevNode(Node* newPrev)
+    void setPrev(Node* newPrev)
     {
-        prev = newPrev;
+        mPrev = newPrev;
     }
 
-    void setValue(int x)
+    void setVal(int x)
     {
-        value = x;
+        mVal = x;
     }
 
 };

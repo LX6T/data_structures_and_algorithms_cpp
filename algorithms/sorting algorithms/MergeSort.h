@@ -12,9 +12,7 @@ class MergeSort
 private:
     static void merge(ArrayList& A, int l, int r, int s)
     {
-        int i = l;
-        int j = s;
-        int k = 0;
+        int i = l, j = s, k = 0;
 
         int t[r - l + 1];
 
@@ -23,26 +21,22 @@ private:
             if (A.get(i) <= A.get(j))
             {
                 t[k] = A.get(i);
-                k++;
-                i++;
+                k++, i++;
             } else
             {
                 t[k] = A.get(j);
-                k++;
-                j++;
+                k++, j++;
             }
         }
         while (i < s)
         {
             t[k] = A.get(i);
-            k++;
-            i++;
+            k++, i++;
         }
         while (j <= r)
         {
             t[k] = A.get(j);
-            k++;
-            j++;
+            k++, j++;
         }
 
         for (int m = l; m <= r; ++m)
@@ -63,65 +57,60 @@ private:
 
         int t[r - l + 1];
 
-        while (i != sNode and j != rNode->getNextNode())
+        while (i != sNode and j != rNode->next())
         {
-            if (i->getValue() <= j->getValue())
+            if (i->val() <= j->val())
             {
-                t[k] = i->getValue();
-                k++;
-                i = i->getNextNode();
+                t[k] = i->val();
+                k++, i = i->next();
             } else
             {
-                t[k] = j->getValue();
-                k++;
-                j = j->getNextNode();
+                t[k] = j->val();
+                k++, j = j->next();
             }
         }
         while (i != sNode)
         {
-            t[k] = i->getValue();
-            k++;
-            i = i->getNextNode();
+            t[k] = i->val();
+            k++, i = i->next();
         }
-        while (j != rNode->getNextNode())
+        while (j != rNode->next())
         {
-            t[k] = j->getValue();
-            k++;
-            j = j->getNextNode();
+            t[k] = j->val();
+            k++, j = j->next();
         }
 
         Node* m = L.getNode(l);
         k = 0;
-        while (m != rNode->getNextNode())
+        while (m != rNode->next())
         {
-            m->setValue(t[k]);
-            m = m->getNextNode();
-            k++;
+            m->setVal(t[k]);
+            k++, m = m->next();
         }
     }
 
 public:
 
-    static void sort(ArrayList& A, int i, int j)
+    static void sort(ArrayList& A, int l, int r)
     {
-        if (i < j)
+        if (l < r)
         {
-            int m = (i + j) / 2;
-            sort(A, i, m);
-            sort(A, m + 1, j);
-            merge(A, i, j, m + 1);
+            int m = (l + r) / 2;
+            sort(A, l, m);
+            sort(A, m + 1, r);
+            merge(A, l, r, m + 1);
         }
     }
 
 
-    static void sort(LinkedList& L, int i, int j)
+    static void sort(LinkedList& L, int l, int r)
     {
-        if (i < j)
+        if (l < r)
         {
-            int m = (i + j) / 2;
-            sort(L, i, m);
-            sort(L, m + 1, j);
-            merge(L, i, j, m + 1);
+            int m = (l + r) / 2;
+            sort(L, l, m);
+            sort(L, m + 1, r);
+            merge(L, l, r, m + 1);
         }
     }
 
