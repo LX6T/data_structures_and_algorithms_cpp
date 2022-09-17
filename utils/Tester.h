@@ -49,7 +49,7 @@ struct Tester
                             InsertionSort::sort(AL);
                             break;
                         case MERGE_SORT:
-                            MergeSort::sort(AL);
+                            MergeSort::sort(AL, 0, 9);
                             break;
                     }
                     AL.print();
@@ -65,7 +65,7 @@ struct Tester
                             InsertionSort::sort(LL);
                             break;
                         case MERGE_SORT:
-                            MergeSort::sort(LL);
+                            MergeSort::sort(LL, 0, 9);
                             break;
                     }
                     LL.print();
@@ -75,7 +75,7 @@ struct Tester
         }
     }
 
-    static void benchmark(std::vector<std::vector<int> > tests)
+    static void benchmark(std::vector<std::vector<int> > tests, int start, int stop, int multiplyStep)
     {
         for (std::vector<int> test: tests)
         {
@@ -83,7 +83,7 @@ struct Tester
             Ordering ordering = (Ordering) test[1];
             Type type = (Type) test[2];
 
-            BenchMarker::sort(1, 10000, 10, algorithm, ordering, type);
+            BenchMarker::sort(start, stop, multiplyStep, algorithm, ordering, type);
         }
     }
 

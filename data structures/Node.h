@@ -30,7 +30,7 @@ public:
         return next;
     }
 
-    [[nodiscard]] int getValue() const
+    int getValue() const
     {
         return value;
     }

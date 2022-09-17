@@ -2,7 +2,7 @@
 // Created by alex on 31/08/2022.
 //
 
-#include "../data structures/data structures.h"
+#include "../../data structures/data structures.h"
 
 #pragma once
 
@@ -10,35 +10,35 @@ class InsertionSort
 {
 public:
 
-    static void sort(ArrayList& AL)
+    static void sort(ArrayList& A)
     {
-        int size = AL.size();
+        int size = A.size();
 
         // Inserts i times into the sorted sublist
         for (int i = 1; i < size; ++i)
         {
-            int currentValue = AL.get(i);
+            int currentValue = A.get(i);
             int j = i - 1;
 
             // Find the last item in the sorted sublist not exceeding currentValue and insert after it
-            while (AL.get(j) > currentValue and j >= 0)
+            while (A.get(j) > currentValue and j >= 0)
             {
-                AL.set(j + 1, AL.get(j));
+                A.set(j + 1, A.get(j));
                 --j;
             }
-            AL.set(j + 1, currentValue);
+            A.set(j + 1, currentValue);
         }
     }
 
-    static void sort(LinkedList& LL)
+    static void sort(LinkedList& L)
     {
-        int size = LL.size();
+        int size = L.size();
 
         // Inserts i times into the sorted sublist
         for (int i = 1; i < size; ++i)
         {
 
-            Node* currentNode = LL.getNode(i);
+            Node* currentNode = L.getNode(i);
             int currentValue = currentNode->getValue();
 
             int j = i - 1;
@@ -52,7 +52,7 @@ public:
 
                 currentNode = currentNode->getPrevNode();
 
-                if (sortedNode != LL.head())
+                if (sortedNode != L.head())
                 {
                     sortedNode = sortedNode->getPrevNode();
                 }

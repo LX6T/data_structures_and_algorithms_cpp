@@ -7,15 +7,13 @@
 int main()
 {
 
-    int ordering = REVERSED;
-    std::vector<std::vector<int> > tests{{SELECTION_SORT, ordering, ARRAY_LIST},
-                                         {INSERTION_SORT, ordering, ARRAY_LIST},
-                                         {SELECTION_SORT, ordering, LINKED_LIST},
-                                         {INSERTION_SORT, ordering, LINKED_LIST}};
+    int ordering = RANDOM;
+    std::vector<std::vector<int> > tests{{MERGE_SORT, ordering, ARRAY_LIST},
+                                         {MERGE_SORT, ordering, LINKED_LIST}};
 
-//    Tester::unitTest(tests);
+    Tester::unitTest(tests);
 
-    Tester::benchmark(tests);
+    Tester::benchmark(tests, 1, 10000, 10);
 
     return 0;
 }

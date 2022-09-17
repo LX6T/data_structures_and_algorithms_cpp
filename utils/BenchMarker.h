@@ -51,9 +51,12 @@ public:
     {
         logMessage(algorithm, ordering, type);
 
+        std::string space = "        ";
+
         for (int i = start; i <= stop; i *= multiplyStep)
         {
-            std::cout << i << ": ";
+            space.pop_back();
+            std::cout << "n = " << i << space;
 
             ArrayList A = ArrayList(generateData(i, ordering));
 
@@ -69,7 +72,7 @@ public:
                         InsertionSort::sort(A);
                         break;
                     case MERGE_SORT:
-                        MergeSort::sort(A);
+                        MergeSort::sort(A, 0, i - 1);
                         break;
                 }
             }

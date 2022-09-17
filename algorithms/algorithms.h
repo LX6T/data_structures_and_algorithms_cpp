@@ -5,6 +5,6 @@
 #pragma once
 
 #include "Fibonacci.h"
-#include "SelectionSort.h"
-#include "InsertionSort.h"
-#include "MergeSort.h"
+#include "sorting algorithms/SelectionSort.h"
+#include "sorting algorithms/InsertionSort.h"
+#include "sorting algorithms/MergeSort.h"
