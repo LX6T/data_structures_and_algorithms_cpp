@@ -22,6 +22,4 @@ public:
 
     virtual void remove(int i) = 0;
 
-    virtual void print() const = 0;
-
 };

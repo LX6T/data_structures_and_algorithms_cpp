@@ -11,8 +11,12 @@ class Queue : virtual public Collection
 {
 public:
 
-    virtual int peek() const = 0;
+    /*  Queue Methods  */
+
+//  virtual void add(int x) = 0;        (inherited from Collection)
 
     virtual int remove() = 0;
+
+    virtual int peek() const = 0;
 
 };

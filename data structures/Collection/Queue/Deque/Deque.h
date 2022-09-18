@@ -10,6 +10,8 @@ class Deque : virtual public Queue
 {
 public:
 
+    /*  Deque Methods  */
+
     virtual void addFirst(int x) = 0;
 
     virtual void addLast(int x) = 0;
@@ -23,8 +25,12 @@ public:
     virtual int getLast() const = 0;
 
 
+    /*  Stack Methods  */
+
     virtual void push(int x) = 0;
 
     virtual int pop() = 0;
+
+//  virtual int peek() const = 0;       (inherited from Queue)
 
 };

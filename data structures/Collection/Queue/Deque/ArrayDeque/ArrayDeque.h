@@ -17,35 +17,44 @@ private:
     int mFirst;
     int mLast;
 
+    /*  Private methods  */
     void doubleCapacity();
 
 public:
 
+    /*  Constructors  */
     ArrayDeque();
     ArrayDeque(const int* input);
 
+    /*  Collection methods  */
     int size() const;
     bool isEmpty() const;
+    void add(int x);        // addLast()
+    void clear();
+    void print() const;
 
+    /*  Deque methods  */
+    void addFirst(int x);
+    void addLast(int x);
+    int removeFirst();
+    int removeLast();
     int getFirst() const;
     int getLast() const;
 
-    void push(int x);
-    int pop();
-    int peek() const;
-    int remove();
+    /*  Queue methods  */
+//  void add(int x);        // addLast()            (inherited from Collection)
+    int remove();           // removeFirst()
+    int peek() const;       // getFirst()
 
-    void add(int x);
-    void addFirst(int x);
-    void addLast(int x);
-
-    int removeFirst();
-    int removeLast();
-    void clear();
-
-    void print() const;
+    /*  Stack methods  */
+    void push(int x);       // addFirst()
+    int pop();              // removeFirst()
+//  int peek() const;       // getFirst()           (inherited from Queue)
 
 };
+
+
+/* ===== CONSTRUCTORS ===== */
 
 ArrayDeque::ArrayDeque()
 {
@@ -78,6 +87,8 @@ ArrayDeque::ArrayDeque(const int* input)
 }
 
 
+/* ===== COLLECTION METHODS ===== */
+
 int ArrayDeque::size() const
 {
     return mSize;
@@ -88,43 +99,38 @@ bool ArrayDeque::isEmpty() const
     return mSize == 0;
 }
 
-
-int ArrayDeque::getFirst() const
-{
-    return mArray[mFirst];
-}
-
-int ArrayDeque::getLast() const
-{
-    return mArray[mLast];
-}
-
-
-void ArrayDeque::push(int x)
-{
-    addFirst(x);
-}
-
-int ArrayDeque::pop()
-{
-    return removeFirst();
-}
-
-int ArrayDeque::peek() const
-{
-    return getFirst();
-}
-
-int ArrayDeque::remove()
-{
-    return removeFirst();
-}
-
-
 void ArrayDeque::add(int x)
 {
     addLast(x);
 }
+
+void ArrayDeque::clear()
+{
+    delete[] mArray;
+    mSize = 0;
+    mCapacity = 16;
+    mArray = new int[mCapacity];
+    mFirst = -1;
+    mLast = -1;
+}
+
+void ArrayDeque::print() const
+{
+    int index = mFirst;
+    for (int i = 0; i < mSize; ++i)
+    {
+        if (index == mCapacity)
+            index = 0;
+
+        std::cout << mArray[index] << " ";
+        index++;
+    }
+
+    std::cout << std::endl;
+}
+
+
+/* ===== DEQUE METHODS ===== */
 
 void ArrayDeque::addFirst(int x)
 {
@@ -170,7 +176,6 @@ void ArrayDeque::addLast(int x)
     mSize++;
 }
 
-
 int ArrayDeque::removeFirst()
 {
     int x = getFirst();
@@ -208,15 +213,49 @@ int ArrayDeque::removeLast()
     return x;
 }
 
-void ArrayDeque::clear()
+int ArrayDeque::getFirst() const
 {
-    delete[] mArray;
-    mSize = 0;
-    mCapacity = 16;
-    mArray = new int[mCapacity];
-    mFirst = -1;
-    mLast = -1;
+    return mArray[mFirst];
 }
+
+int ArrayDeque::getLast() const
+{
+    return mArray[mLast];
+}
+
+
+/* ===== QUEUE METHODS ===== */
+
+//  void LinkedList::add(int x)
+//  {
+//      addLast(x);
+//  }
+
+int ArrayDeque::remove()
+{
+    return removeFirst();
+}
+
+int ArrayDeque::peek() const
+{
+    return getFirst();
+}
+
+
+/* ===== STACK METHODS ===== */
+
+void ArrayDeque::push(int x)
+{
+    addFirst(x);
+}
+
+int ArrayDeque::pop()
+{
+    return removeFirst();
+}
+
+
+/* ===== PRIVATE METHODS ===== */
 
 void ArrayDeque::doubleCapacity()
 {
@@ -233,20 +272,4 @@ void ArrayDeque::doubleCapacity()
     mCapacity = newCapacity;
     mFirst = 0;
     mLast = mSize - 1;
-}
-
-
-void ArrayDeque::print() const
-{
-    int index = mFirst;
-    for (int i = 0; i < mSize; ++i)
-    {
-        if (index == mCapacity)
-            index = 0;
-
-        std::cout << mArray[index] << " ";
-        index++;
-    }
-
-    std::cout << std::endl;
 }

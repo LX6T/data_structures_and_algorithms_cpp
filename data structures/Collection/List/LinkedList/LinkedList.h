@@ -15,35 +15,29 @@ private:
     int mSize;
     Node* mHead;
     Node* mTail;
+
 public:
 
+    /*  Constructors/Destructors  */
     LinkedList();
     LinkedList(const int* input);
     ~LinkedList();
 
+    /*  Collection methods  */
     int size() const;
     bool isEmpty() const;
+    void add(int x);        // addLast()
+    void clear();
+    void print() const;
 
+    /*  List methods  */
+    void insert(int i, int x);
+    void remove(int i);
     int get(int i) const;
-    int getFirst() const;
-    int getLast() const;
     void set(int i, int x);
     void swap(int i, int j);
 
-    void push(int x);
-    int pop();
-    int peek() const;
-    int remove();
-    int removeFirst();
-    int removeLast();
-
-    void add(int x);
-    void addFirst(int x);
-    void addLast(int x);
-    void insert(int i, int x);
-    void remove(int i);
-    void clear();
-
+    /*  LinkedList methods  */
     Node* head() const;
     Node* tail() const;
     Node* getNode(int i) const;
@@ -52,9 +46,28 @@ public:
     void insertBefore(Node* node, int value);
     void insertAfter(Node* node, int value);
 
-    void print() const;
+    /*  Deque methods  */
+    void addFirst(int x);
+    void addLast(int x);
+    int removeFirst();
+    int removeLast();
+    int getFirst() const;
+    int getLast() const;
+
+    /*  Queue methods  */
+//  void add(int x);        // addLast()            (inherited from Collection)
+    int remove();           // removeFirst()
+    int peek() const;       // getFirst()
+
+    /*  Stack methods  */
+    void push(int x);       // addFirst()
+    int pop();              // removeFirst()
+//  int peek() const;       // getFirst()           (inherited from Queue)
+
 };
 
+
+/* ===== CONSTRUCTORS / DESTRUCTORS ===== */
 
 LinkedList::LinkedList()
 {
@@ -105,6 +118,8 @@ LinkedList::~LinkedList()
 }
 
 
+/* ===== COLLECTION METHODS ===== */
+
 int LinkedList::size() const
 {
     return mSize;
@@ -115,20 +130,44 @@ bool LinkedList::isEmpty() const
     return mSize == 0;
 }
 
+void LinkedList::add(int x)
+{
+    addLast(x);
+}
+
+void LinkedList::clear()
+{
+    Node* current = mHead;
+    while (current != nullptr)
+    {
+        Node* next = current->next();
+        delete current;
+        current = next;
+    }
+    mSize = 0;
+    mHead = nullptr;
+    mTail = nullptr;
+}
+
+void LinkedList::print() const
+{
+    Node* currentNode = mHead;
+
+    for (int i = 0; i < mSize; ++i)
+    {
+        std::cout << currentNode->val() << " ";
+        currentNode = currentNode->next();
+    }
+
+    std::cout << std::endl;
+}
+
+
+/* ===== LIST METHODS ===== */
 
 int LinkedList::get(int i) const
 {
     return getNode(i)->val();
-}
-
-int LinkedList::getFirst() const
-{
-    return mHead->val();
-}
-
-int LinkedList::getLast() const
-{
-    return mTail->val();
 }
 
 void LinkedList::set(int i, int x)
@@ -142,115 +181,6 @@ void LinkedList::swap(int i, int j)
     int b = get(j);
     set(i, b);
     set(j, a);
-}
-
-
-void LinkedList::push(int x)
-{
-    addFirst(x);
-}
-
-int LinkedList::pop()
-{
-    int x = getFirst();
-    removeFirst();
-    return x;
-}
-
-int LinkedList::peek() const
-{
-    return getFirst();
-}
-
-int LinkedList::remove()
-{
-    int x = getLast();
-    removeLast();
-    return x;
-}
-
-int LinkedList::removeFirst()
-{
-    int x;
-    if (mSize == 0)
-    {
-        x = -1;
-    } else if (mSize == 1)
-    {
-        x = mHead->val();
-        delete mHead;
-        mHead = nullptr;
-        mTail = nullptr;
-    } else
-    {
-        x = mHead->val();
-        Node* newStart = mHead->next();
-        newStart->setPrev(nullptr);
-        delete mHead;
-        mHead = newStart;
-    }
-    mSize--;
-    return x;
-}
-
-int LinkedList::removeLast()
-{
-    int x;
-    if (mSize == 0)
-    {
-        x = -1;
-    } else if (mSize == 1)
-    {
-        x = mHead->val();
-        delete mHead;
-        mHead = nullptr;
-        mTail = nullptr;
-    } else
-    {
-        x = mHead->val();
-        Node* newEnd = mTail->prev();
-        newEnd->setNext(nullptr);
-        delete mTail;
-        mTail = newEnd;
-    }
-    mSize--;
-    return x;
-}
-
-
-void LinkedList::add(int x)
-{
-    addLast(x);
-}
-
-void LinkedList::addFirst(int x)
-{
-    if (mSize == 0)
-    {
-        mHead = new Node(nullptr, nullptr, x);
-        mTail = mHead;
-    } else
-    {
-        auto* newStart = new Node(nullptr, mHead, x);
-        mHead->setPrev(newStart);
-        mHead = newStart;
-    }
-    mSize++;
-}
-
-void LinkedList::addLast(int x)
-{
-    if (mTail == nullptr)
-    {
-        mHead = new Node(nullptr, nullptr, x);
-        mTail = mHead;
-    } else
-    {
-        auto* newEnd = new Node(mTail, nullptr, x);
-        mTail->setNext(newEnd);
-        mTail = newEnd;
-    }
-    mSize++;
 }
 
 void LinkedList::insert(int i, int x)
@@ -292,20 +222,8 @@ void LinkedList::remove(int i)
     }
 }
 
-void LinkedList::clear()
-{
-    Node* current = mHead;
-    while (current != nullptr)
-    {
-        Node* next = current->next();
-        delete current;
-        current = next;
-    }
-    mSize = 0;
-    mHead = nullptr;
-    mTail = nullptr;
-}
 
+/* ===== LINKED_LIST METHODS ===== */
 
 Node* LinkedList::head() const
 {
@@ -397,15 +315,128 @@ void LinkedList::insertAfter(Node* node, int value)
 }
 
 
-void LinkedList::print() const
+/* ===== DEQUE METHODS ===== */
+
+void LinkedList::addFirst(int x)
 {
-    Node* currentNode = mHead;
-
-    for (int i = 0; i < mSize; ++i)
+    if (mSize == 0)
     {
-        std::cout << currentNode->val() << " ";
-        currentNode = currentNode->next();
+        mHead = new Node(nullptr, nullptr, x);
+        mTail = mHead;
+    } else
+    {
+        auto* newStart = new Node(nullptr, mHead, x);
+        mHead->setPrev(newStart);
+        mHead = newStart;
     }
-
-    std::cout << std::endl;
+    mSize++;
 }
+
+void LinkedList::addLast(int x)
+{
+    if (mTail == nullptr)
+    {
+        mHead = new Node(nullptr, nullptr, x);
+        mTail = mHead;
+    } else
+    {
+        auto* newEnd = new Node(mTail, nullptr, x);
+        mTail->setNext(newEnd);
+        mTail = newEnd;
+    }
+    mSize++;
+}
+
+int LinkedList::removeFirst()
+{
+    int x;
+    if (mSize == 0)
+    {
+        x = -1;
+    } else if (mSize == 1)
+    {
+        x = mHead->val();
+        delete mHead;
+        mHead = nullptr;
+        mTail = nullptr;
+    } else
+    {
+        x = mHead->val();
+        Node* newStart = mHead->next();
+        newStart->setPrev(nullptr);
+        delete mHead;
+        mHead = newStart;
+    }
+    mSize--;
+    return x;
+}
+
+int LinkedList::removeLast()
+{
+    int x;
+    if (mSize == 0)
+    {
+        x = -1;
+    } else if (mSize == 1)
+    {
+        x = mHead->val();
+        delete mHead;
+        mHead = nullptr;
+        mTail = nullptr;
+    } else
+    {
+        x = mHead->val();
+        Node* newEnd = mTail->prev();
+        newEnd->setNext(nullptr);
+        delete mTail;
+        mTail = newEnd;
+    }
+    mSize--;
+    return x;
+}
+
+int LinkedList::getFirst() const
+{
+    return mHead->val();
+}
+
+int LinkedList::getLast() const
+{
+    return mTail->val();
+}
+
+
+/* ===== QUEUE METHODS ===== */
+
+//  void LinkedList::add(int x)
+//  {
+//      addLast(x);
+//  }
+
+int LinkedList::remove()
+{
+    return removeFirst();
+}
+
+int LinkedList::peek() const
+{
+    return getFirst();
+}
+
+
+/* ===== STACK METHODS ===== */
+
+void LinkedList::push(int x)
+{
+    addFirst(x);
+}
+
+int LinkedList::pop()
+{
+    return removeFirst();
+}
+
+//  int LinkedList::peek() const
+//  {
+//      return getFirst();
+//  }

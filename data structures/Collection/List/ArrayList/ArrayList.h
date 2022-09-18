@@ -14,26 +14,31 @@ private:
     int mSize;
     int mCapacity;
     int* mArray;
+    
 public:
 
+    /*  Constructors  */
     ArrayList();
     ArrayList(const int* input);
 
+    /*  Collection methods  */
     int size() const;
     bool isEmpty() const;
+    void add(int x);
+    void clear();
+    void print() const;
 
+    /*  List methods  */
+    void insert(int i, int x);
+    void remove(int i);
     int get(int i) const;
     void set(int i, int x);
     void swap(int i, int j);
 
-    void add(int x);
-    void insert(int i, int x);
-    void remove(int i);
-    void clear();
-
-    void print() const;
 };
 
+
+/* ===== CONSTRUCTORS ===== */
 
 ArrayList::ArrayList()
 {
@@ -61,6 +66,8 @@ ArrayList::ArrayList(const int* input)
 }
 
 
+/* ===== COLLECTION METHODS ===== */
+
 int ArrayList::size() const
 {
     return mSize;
@@ -71,28 +78,30 @@ bool ArrayList::isEmpty() const
     return mSize == 0;
 }
 
-int ArrayList::get(int i) const
-{
-    return mArray[i];
-}
-
-void ArrayList::set(int i, int x)
-{
-    mArray[i] = x;
-}
-
-void ArrayList::swap(int i, int j)
-{
-    int a = mArray[i];
-    int b = mArray[j];
-    mArray[i] = b;
-    mArray[j] = a;
-}
-
 void ArrayList::add(int x)
 {
     insert(mSize, x);
 }
+
+void ArrayList::clear()
+{
+    mSize = 0;
+    mCapacity = 10;
+    mArray = new int[10];
+}
+
+void ArrayList::print() const
+{
+    for (int i = 0; i < mSize; ++i)
+    {
+        std::cout << mArray[i] << " ";
+    }
+
+    std::cout << std::endl;
+}
+
+
+/* ===== LIST METHODS ===== */
 
 void ArrayList::insert(int i, int x)
 {
@@ -128,19 +137,20 @@ void ArrayList::remove(int i)
     mSize--;
 }
 
-void ArrayList::clear()
+int ArrayList::get(int i) const
 {
-    mSize = 0;
-    mCapacity = 10;
-    mArray = new int[10];
+    return mArray[i];
 }
 
-void ArrayList::print() const
+void ArrayList::set(int i, int x)
 {
-    for (int i = 0; i < mSize; ++i)
-    {
-        std::cout << mArray[i] << " ";
-    }
+    mArray[i] = x;
+}
 
-    std::cout << std::endl;
+void ArrayList::swap(int i, int j)
+{
+    int a = mArray[i];
+    int b = mArray[j];
+    mArray[i] = b;
+    mArray[j] = a;
 }
