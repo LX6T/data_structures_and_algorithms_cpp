@@ -4,5 +4,5 @@
 
 #pragma once
 
-#include "ArrayList.h"
-#include "LinkedList.h"
+#include "Collection/List/ArrayList/ArrayList.h"
+#include "Collection/List/LinkedList/LinkedList.h"

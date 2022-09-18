@@ -4,11 +4,11 @@
 
 #include <iostream>
 #include <vector>
-#include "List.h"
+#include "../List.h"
 
 #pragma once
 
-class ArrayList : public List
+class ArrayList : virtual public List
 {
 private:
     static const int END = -1;
@@ -93,7 +93,7 @@ void ArrayList::insert(int i, int x)
 {
     if (i >= mCapacity)
     {
-        mCapacity *= 2;
+        mCapacity += mCapacity / 2;
         mData.resize(mCapacity);
     }
 

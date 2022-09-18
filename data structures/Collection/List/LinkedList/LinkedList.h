@@ -3,12 +3,13 @@
 //
 
 #include <iostream>
-#include "List"
+#include "../List.h"
+#include "../../Queue/Deque/Deque.h"
 #include "Node.h"
 
 #pragma once
 
-class LinkedList : public List
+class LinkedList : virtual public List, virtual public Deque
 {
 private:
     static const int END = -1;
@@ -28,6 +29,11 @@ public:
     int getLast() const;
     void set(int i, int x);
     void swap(int i, int j);
+
+    void push(int x);
+    int pop();
+    int peek() const;
+    int remove();
 
     void add(int x);
     void addFirst(int x);
@@ -131,6 +137,31 @@ void LinkedList::swap(int i, int j)
 }
 
 
+void LinkedList::push(int x)
+{
+    addFirst(x);
+}
+
+int LinkedList::pop()
+{
+    int x = getFirst();
+    removeFirst();
+    return x;
+}
+
+int LinkedList::peek() const
+{
+    return getFirst();
+}
+
+int LinkedList::remove()
+{
+    int x = getLast();
+    removeLast();
+    return x;
+}
+
+
 void LinkedList::add(int x)
 {
     insert(mSize, x);
@@ -153,7 +184,7 @@ void LinkedList::addFirst(int x)
 
 void LinkedList::addLast(int x)
 {
-    if (mSize == 0)
+    if (mTail == nullptr)
     {
         mHead = new Node(nullptr, nullptr, x);
         mTail = mHead;
