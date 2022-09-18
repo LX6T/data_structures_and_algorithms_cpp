@@ -6,3 +6,4 @@
 
 #include "Collection/List/ArrayList/ArrayList.h"
 #include "Collection/List/LinkedList/LinkedList.h"
+#include "Collection/Queue/Deque/ArrayDeque/ArrayDeque.h"

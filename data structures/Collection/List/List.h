@@ -10,8 +10,6 @@
 
 class List : virtual public Collection
 {
-protected:
-    int mSize;
 public:
 
     virtual int get(int i) const = 0;

@@ -12,7 +12,7 @@
 class LinkedList : virtual public List, virtual public Deque
 {
 private:
-    static const int END = -1;
+    int mSize;
     Node* mHead;
     Node* mTail;
 public:
@@ -34,15 +34,14 @@ public:
     int pop();
     int peek() const;
     int remove();
+    int removeFirst();
+    int removeLast();
 
     void add(int x);
     void addFirst(int x);
     void addLast(int x);
     void insert(int i, int x);
-
     void remove(int i);
-    void removeFirst();
-    void removeLast();
     void clear();
 
     Node* head() const;
@@ -50,7 +49,6 @@ public:
     Node* getNode(int i) const;
     void swap(Node* A, Node* B);
     void remove(Node* node);
-
     void insertBefore(Node* node, int value);
     void insertAfter(Node* node, int value);
 
@@ -80,7 +78,17 @@ LinkedList::LinkedList(const int* input)
 
     for (int j = 0; j < i; ++j)
     {
-        addLast(input[j]);
+        if (mTail == nullptr)
+        {
+            mHead = new Node(nullptr, nullptr, input[j]);
+            mTail = mHead;
+        } else
+        {
+            auto* newEnd = new Node(mTail, nullptr, input[j]);
+            mTail->setNext(newEnd);
+            mTail = newEnd;
+        }
+        mSize++;
     }
 
 }
@@ -161,10 +169,58 @@ int LinkedList::remove()
     return x;
 }
 
+int LinkedList::removeFirst()
+{
+    int x;
+    if (mSize == 0)
+    {
+        x = -1;
+    } else if (mSize == 1)
+    {
+        x = mHead->val();
+        delete mHead;
+        mHead = nullptr;
+        mTail = nullptr;
+    } else
+    {
+        x = mHead->val();
+        Node* newStart = mHead->next();
+        newStart->setPrev(nullptr);
+        delete mHead;
+        mHead = newStart;
+    }
+    mSize--;
+    return x;
+}
+
+int LinkedList::removeLast()
+{
+    int x;
+    if (mSize == 0)
+    {
+        x = -1;
+    } else if (mSize == 1)
+    {
+        x = mHead->val();
+        delete mHead;
+        mHead = nullptr;
+        mTail = nullptr;
+    } else
+    {
+        x = mHead->val();
+        Node* newEnd = mTail->prev();
+        newEnd->setNext(nullptr);
+        delete mTail;
+        mTail = newEnd;
+    }
+    mSize--;
+    return x;
+}
+
 
 void LinkedList::add(int x)
 {
-    insert(mSize, x);
+    addLast(x);
 }
 
 void LinkedList::addFirst(int x)
@@ -216,7 +272,6 @@ void LinkedList::insert(int i, int x)
     }
 }
 
-
 void LinkedList::remove(int i)
 {
     if (i <= 0)
@@ -235,46 +290,6 @@ void LinkedList::remove(int i)
         next->setPrev(prev);
         mSize--;
     }
-}
-
-void LinkedList::removeFirst()
-{
-    if (mSize == 0)
-    {
-        return;
-    } else if (mSize == 1)
-    {
-        delete mHead;
-        mHead = nullptr;
-        mTail = nullptr;
-    } else
-    {
-        Node* newStart = mHead->next();
-        newStart->setPrev(nullptr);
-        delete mHead;
-        mHead = newStart;
-    }
-    mSize--;
-}
-
-void LinkedList::removeLast()
-{
-    if (mSize == 0)
-    {
-        return;
-    } else if (mSize == 1)
-    {
-        delete mHead;
-        mHead = nullptr;
-        mTail = nullptr;
-    } else
-    {
-        Node* newEnd = mTail->prev();
-        newEnd->setNext(nullptr);
-        delete mTail;
-        mTail = newEnd;
-    }
-    mSize--;
 }
 
 void LinkedList::clear()
@@ -348,7 +363,6 @@ void LinkedList::remove(Node* node)
     delete node;
     mSize--;
 }
-
 
 void LinkedList::insertBefore(Node* node, int value)
 {

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Fibonacci.h"
+#include "generating algorithms/Fibonacci.h"
 #include "sorting algorithms/SelectionSort.h"
 #include "sorting algorithms/InsertionSort.h"
 #include "sorting algorithms/MergeSort.h"

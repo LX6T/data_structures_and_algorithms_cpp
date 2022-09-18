@@ -11,9 +11,9 @@
 class ArrayList : virtual public List
 {
 private:
-    static const int END = -1;
+    int mSize;
     int mCapacity;
-    std::vector<int> mData;
+    int* mArray;
 public:
 
     ArrayList();
@@ -38,21 +38,26 @@ public:
 ArrayList::ArrayList()
 {
     mSize = 0;
-    mCapacity = 0;
-    mData = std::vector<int>();
+    mCapacity = 10;
+    mArray = new int[mCapacity];
 }
 
 ArrayList::ArrayList(const int* input)
 {
     mSize = 0;
-    mData = std::vector<int>();
 
     while (input[mSize] != END)
     {
-        mData.push_back(input[mSize]);
         mSize++;
     }
-    mCapacity = mSize;
+    mCapacity = mSize * 2;
+
+    mArray = new int[mCapacity];
+
+    for (int i = 0; i < mSize; ++i)
+    {
+        mArray[i] = input[i];
+    }
 }
 
 
@@ -68,20 +73,20 @@ bool ArrayList::isEmpty() const
 
 int ArrayList::get(int i) const
 {
-    return mData[i];
+    return mArray[i];
 }
 
 void ArrayList::set(int i, int x)
 {
-    mData[i] = x;
+    mArray[i] = x;
 }
 
 void ArrayList::swap(int i, int j)
 {
-    int a = mData[i];
-    int b = mData[j];
-    mData[i] = b;
-    mData[j] = a;
+    int a = mArray[i];
+    int b = mArray[j];
+    mArray[i] = b;
+    mArray[j] = a;
 }
 
 void ArrayList::add(int x)
@@ -93,11 +98,17 @@ void ArrayList::insert(int i, int x)
 {
     if (i >= mCapacity)
     {
-        mCapacity += mCapacity / 2;
-        mData.resize(mCapacity);
+        mCapacity *= 2;
+        int* newArray = new int[mCapacity];
+        for (int j = 0; j < mSize; ++j)
+        {
+            newArray[j] = mArray[j];
+        }
+        delete[] mArray;
+        mArray = newArray;
     }
 
-    mData[mSize] = x;
+    mArray[mSize] = x;
 
     for (int j = mSize; j > i; --j)
     {
@@ -120,15 +131,15 @@ void ArrayList::remove(int i)
 void ArrayList::clear()
 {
     mSize = 0;
-    mCapacity = 0;
-    mData = std::vector<int>();
+    mCapacity = 10;
+    mArray = new int[10];
 }
 
 void ArrayList::print() const
 {
     for (int i = 0; i < mSize; ++i)
     {
-        std::cout << get(i) << " ";
+        std::cout << mArray[i] << " ";
     }
 
     std::cout << std::endl;

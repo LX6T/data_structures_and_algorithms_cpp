@@ -14,9 +14,9 @@ public:
 
     virtual void addLast(int x) = 0;
 
-    virtual void removeFirst() = 0;
+    virtual int removeFirst() = 0;
 
-    virtual void removeLast() = 0;
+    virtual int removeLast() = 0;
 
     virtual int getFirst() const = 0;
 

@@ -7,6 +7,8 @@
 
 class Collection
 {
+protected:
+    static const int END = -1;
 public:
 
     virtual int size() const = 0;
