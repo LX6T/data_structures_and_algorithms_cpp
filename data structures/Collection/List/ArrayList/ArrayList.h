@@ -14,7 +14,7 @@ private:
     int mSize;
     int mCapacity;
     int* mArray;
-    
+
 public:
 
     /*  Constructors  */
@@ -24,7 +24,7 @@ public:
     /*  Collection methods  */
     int size() const;
     bool isEmpty() const;
-    void add(int x);
+    void add(int x);        // insert(mSize, x)
     void clear();
     void print() const;
 

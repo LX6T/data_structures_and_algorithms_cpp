@@ -226,7 +226,7 @@ int ArrayDeque::getLast() const
 
 /* ===== QUEUE METHODS ===== */
 
-//  void LinkedList::add(int x)
+//  void ArrayDeque::add(int x)
 //  {
 //      addLast(x);
 //  }
