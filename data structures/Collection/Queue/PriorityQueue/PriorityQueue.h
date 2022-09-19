@@ -25,7 +25,7 @@ public:
 
     /*  Constructors  */
     PriorityQueue();
-    PriorityQueue(const int* input);
+    PriorityQueue(const int* input, char comparator);
 
     /*  Collection methods  */
     int size() const;
@@ -48,11 +48,11 @@ PriorityQueue::PriorityQueue()
 {
     mSize = 0;
     mCapacity = 11;
-    mCapacity = MAX;
+    mComparator = MAX;
     mBinaryHeap = new int[mCapacity];
 }
 
-PriorityQueue::PriorityQueue(const int* input)
+PriorityQueue::PriorityQueue(const int* input, char comparator)
 {
     mSize = 0;
 
@@ -61,6 +61,8 @@ PriorityQueue::PriorityQueue(const int* input)
         mSize++;
     }
     mCapacity = mSize * 2;
+
+    mComparator = comparator == '>' ? MAX : MIN;
 
     mBinaryHeap = new int[mCapacity];
 
@@ -163,30 +165,40 @@ int PriorityQueue::peek() const
 
 void PriorityQueue::sink(int i)
 {
+    int parent = i, child1, child2;
     while (true)
     {
-        int leaf1 = 2 * i + 1;
-        int leaf2 = 2 * i + 2;
-        if (mSize > leaf2)
+        child1 = 2 * parent + 1;
+        child2 = 2 * parent + 2;
+
+        int& parentValue = mBinaryHeap[parent];
+
+        if (mSize > child2)
         {
-            if (mBinaryHeap[i] < mBinaryHeap[leaf2] and mBinaryHeap[leaf1] < mBinaryHeap[leaf2])
+            int& child1Value = mBinaryHeap[child1];
+            int& child2Value = mBinaryHeap[child2];
+
+            if (mComparator * parentValue < mComparator * child2Value and
+                mComparator * child1Value < mComparator * child2Value)
             {
-                std::swap(mBinaryHeap[i], mBinaryHeap[leaf2]);
-                i = leaf2;
+                std::swap(parentValue, child2Value);
+                parent = child2;
                 continue;
-            } else if (mBinaryHeap[i] < mBinaryHeap[leaf1])
+            } else if (mComparator * parentValue < mComparator * child1Value)
             {
-                std::swap(mBinaryHeap[i], mBinaryHeap[leaf1]);
-                i = leaf1;
+                std::swap(parentValue, child1Value);
+                parent = child1;
                 continue;
             } else
             { break; }
-        } else if (mSize > leaf1)
+        } else if (mSize > child1)
         {
-            if (mBinaryHeap[i] < mBinaryHeap[leaf1])
+            int& child1Value = mBinaryHeap[child1];
+
+            if (mComparator * parentValue < mComparator * child1Value)
             {
-                std::swap(mBinaryHeap[i], mBinaryHeap[leaf1]);
-                i = leaf1;
+                std::swap(parentValue, child1Value);
+                parent = child1;
                 continue;
             } else
             { break; }
