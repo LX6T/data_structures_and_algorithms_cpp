@@ -352,7 +352,7 @@ int LinkedList::removeFirst()
     int x;
     if (mSize == 0)
     {
-        x = -1;
+        return -1;
     } else if (mSize == 1)
     {
         x = mHead->val();
@@ -376,7 +376,7 @@ int LinkedList::removeLast()
     int x;
     if (mSize == 0)
     {
-        x = -1;
+        return -1;
     } else if (mSize == 1)
     {
         x = mHead->val();

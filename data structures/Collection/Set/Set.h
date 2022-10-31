@@ -8,5 +8,10 @@
 
 class Set : Collection
 {
+public:
 
+    virtual bool contains() const = 0;
+
+    virtual void remove() = 0;
+    
 };
